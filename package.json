@@ -5,7 +5,9 @@
   "bugs": {
     "url": "https://github.com/davideweaver/react-native-fields/issues"
   },
-  "dependencies": {},
+  "dependencies": {
+    "react-native-keyboard-aware-scroll-view": "^0.2.7"
+  },
   "description": "Fields for React Native",
   "homepage": "https://github.com/davideweaver/react-native-fields#readme",
   "keywords": [

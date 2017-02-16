@@ -13,6 +13,6 @@ export {
         InputField, SwitchField,
         Separator, LinkField, PickerField,
         KeyboardAwareScrollView,
-        Form, InstagramPhotosField
+        Form, InstagramPhotosField,
         Field, FieldGroup, TouchableField, FieldGutter, DescriptionField
       }

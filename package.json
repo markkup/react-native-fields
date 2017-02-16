@@ -1,0 +1,30 @@
+{
+  "author": {
+    "name": "Dave Weaver"
+  },
+  "bugs": {
+    "url": "https://github.com/davideweaver/react-native-fields/issues"
+  },
+  "dependencies": {},
+  "description": "Fields for React Native",
+  "homepage": "https://github.com/davideweaver/react-native-fields#readme",
+  "keywords": [
+    "react",
+    "native",
+    "fields",
+    "input"
+  ],
+  "license": "MIT",
+  "main": "index.js",
+  "name": "react-native-fields",
+  "optionalDependencies": {},
+  "readmeFilename": "README.md",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/davideweaver/react-native-fields.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "0.0.1"
+}

@@ -8,15 +8,21 @@ import Styles, { Color, Dims } from "../styles"
 export class FieldGroup extends Component {
   static propTypes = {
     title: PropTypes.string,
-    gutter: PropTypes.bool
+    gutter: PropTypes.bool,
+    onFocus: PropTypes.func,
+    onChange: PropTypes.func
   }
 
   static defaultProps = {
     title: null,
-    gutter: true
+    gutter: true,
+    onFocus: () => {},
+    onChange: () => {}
   }
 
   render() {
+    // if a title was passed, create a text header
+    // otherwise show a gutter if not explicitly disabled
     let header = null;
     if (this.props.title) {
         header = (<View style={styles.fieldLabel}>
@@ -31,15 +37,39 @@ export class FieldGroup extends Component {
     else {
       header = null;
     }
+
+    // propogate our form's handlers to our children fields
+    let wrappedChildren = [];
+    React.Children.map(this.props.children, (child, i)=> {
+      if (!child) {
+        return;
+      }
+      wrappedChildren.push(React.cloneElement(child, {
+        key: child.ref || child.type+i,
+        fieldRef : child.ref,
+        ref: child.ref,
+        onFocus:this._handleFieldFocused.bind(this),
+        onChange:this._handleFieldChange.bind(this, child.ref)
+      }))
+    }, this)
+
     return (
       <View>
         {header}
         <View style={[styles.fieldGroup, this.props.style]}>
-          {this.props.children}
+          {wrappedChildren}
         </View>
         <View style={styles.fieldBorder} />
       </View>
     );
+  }
+
+  _handleFieldFocused(event, inputHandle){
+    this.props.onFocus && this.props.onFocus(event, inputHandle);
+  }
+
+  _handleFieldChange(field_ref, value){
+    this.props.onChange && this.props.onChange(field_ref, value);
   }
 }
 

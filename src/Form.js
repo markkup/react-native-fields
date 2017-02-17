@@ -1,4 +1,5 @@
 import React from 'react';
+import { FieldGroup } from "./fields/Fields"
 let { View, TextInput,
   StyleSheet,
   ScrollView,
@@ -45,12 +46,13 @@ export class Form extends React.Component{
       if (!child) {
         return;
       }
+        var isGroup = child.type.name == "FieldGroup";
         wrappedChildren.push(React.cloneElement(child, {
           key: child.ref || child.type+i,
           fieldRef : child.ref,
           ref: child.ref,
           onFocus:this.handleFieldFocused.bind(this),
-          onChange:this.handleFieldChange.bind(this, child.ref)
+          onChange:isGroup ? this.handleFieldChange.bind(this) : this.handleFieldChange.bind(this, child.ref)
         }
       ));
     }, this);

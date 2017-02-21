@@ -36,17 +36,23 @@ export class InputComponent extends React.Component{
     this._scrollToInput = this._scrollToInput.bind(this)
   }
 
-  setValue(value){
-    this.setState({value:value});
-    if(this.props.onChange)      this.props.onChange(value);
-    if(this.props.onValueChange) this.props.onValueChange(value);
+  componentWillMount() {
+    if (this.props.value)
+      this._updateValue(this.props.value);
   }
+
+  setValue(value){
+    this._updateValue(value);
+  }
+
   focus(){
     this.refs.inputBox.focus()
   }
+
   triggerValidation() {
     this.setState({isValid:this.validate(this.state.value)});
   }
+
   validate(value){
     let validationResult;
     this.validationErrors = [];
@@ -112,20 +118,26 @@ export class InputComponent extends React.Component{
 	  }
     // //e.nativeEvent.layout: {x, y, width, height}}}.
   }
+
   handleChange(event){
     const value = event.nativeEvent.text;
+    const height = event.nativeEvent.contentSize ? event.nativeEvent.contentSize.height : 0;
+    this._updateValue(value, height);
+  }
 
+  _updateValue(value, height = 0) {
     this.validate(value);
 
-    this.setState({value,
-      inputHeight: Math.max(this.state.minFieldHeight,
-        (event.nativeEvent.contentSize && this.props.multiline)
-          ? event.nativeEvent.contentSize.height
-          : 0)
-      });
-    //this.props.onChange(this.props.fieldRef, value);
-    if(this.props.onChange)      this.props.onChange(value, this.valid);
-    if(this.props.onValueChange) this.props.onValueChange(value,this.valid);
+    this.setState({
+      value: value,
+      inputHeight: Math.max(this.state.minFieldHeight, (height && this.props.multiline) ? height : 0)
+    });
+
+    if(this.props.onChange)      
+      this.props.onChange(value, this.valid);
+
+    if(this.props.onValueChange) 
+      this.props.onValueChange(value, this.valid);
   }
 
   _scrollToInput (event) {

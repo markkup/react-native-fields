@@ -1,7 +1,7 @@
 const Color = {
     text: "#000",
     background: "white",
-    tint: "red"
+    tint: "rgb(0, 122, 255)"
 }
 
 const Dims = {

@@ -153,12 +153,7 @@ export class InputComponent extends React.Component{
   handleFieldPress(event){
     this.refs.inputBox.focus();
   }
-  render(){
- // style={[formStyles.fieldContainer,
- //     formStyles.horizontalContainer,
- //     this.props.containerStyle,
- //     {height: this.state.inputHeight+1}
- //   ]}
+  render() {
     return(<Field {...this.props}>
         <View
           onLayout={this.handleLayoutChange}
@@ -191,6 +186,8 @@ export class InputComponent extends React.Component{
             onChange={this.handleChange}
             onFocus={this._scrollToInput}
             placeholder={this.props.placeholder}
+            placeholderTextColor={this.props.placeholderTextColor || "#BBB"}
+            underlineColorAndroid={this.props.underlineColorAndroid || "transparent"}
             value={this.state.value}
             width={this.state.width-this.state.labelWidth-(Dims.horzPadding*2)
                 -((this.props.iconRight)?this.props.iconRight.props.size:0)

@@ -1,42 +1,16 @@
-import React from 'react';
+import React from "react"
 import { FieldGroup } from "./fields/Fields"
-let { View, TextInput,
-  StyleSheet,
-  ScrollView,
-  Text,
-  SliderIOS,
-  TouchableWithoutFeedback
-} = require('react-native');
+import { View } from "react-native"
 
-// import {Separator} from './fields/Separator';
+export class Form extends React.Component {
 
-export class Form extends React.Component{
   constructor(props){
     super();
-
     this.values = {};
-
   }
 
-  handleFieldFocused(event, inputHandle){
-    this.props.onFocus && this.props.onFocus(event, inputHandle);
-  }
-  handleFieldChange(field_ref, value){
-    this.values[field_ref] = value;
-    this.props.onChange && this.props.onChange(this.values);
-  }
   getValues(){
     return this.values;
-  }
-
-  underscoreToSpaced(str){
-    var words = str.split('_');
-    var res=[];
-    words.map(function(word, i){
-      res.push(word.charAt(0).toUpperCase() + word.slice(1));
-    })
-
-    return res.join(' ');
   }
 
   render(){
@@ -51,8 +25,8 @@ export class Form extends React.Component{
           key: child.ref || child.type+i,
           fieldRef : child.ref,
           ref: child.ref,
-          onFocus:this.handleFieldFocused.bind(this),
-          onChange:isGroup ? this.handleFieldChange.bind(this) : this.handleFieldChange.bind(this, child.ref)
+          onFocus:this._handleFieldFocused.bind(this),
+          onChange:isGroup ? this._handleFieldChange.bind(this) : this._handleFieldChange.bind(this, child.ref)
         }
       ));
     }, this);
@@ -62,5 +36,14 @@ export class Form extends React.Component{
           {wrappedChildren}
       </View>
     );
+  }
+
+  _handleFieldFocused(event, inputHandle){
+    this.props.onFocus && this.props.onFocus(event, inputHandle);
+  }
+
+  _handleFieldChange(field_ref, value){
+    this.values[field_ref] = value;
+    this.props.onChange && this.props.onChange(this.values);
   }
 }

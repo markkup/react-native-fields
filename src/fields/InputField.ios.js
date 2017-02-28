@@ -81,12 +81,14 @@ let formStyles = StyleSheet.create({
     paddingLeft: 0,
     paddingRight: 10,
     marginTop: 5,
-    lineHeight: 32
+    lineHeight: 32,
+    flex:1
   },
   input: {
     paddingLeft: 0,
     paddingRight: 0,
-    fontSize: 34/2
+    fontSize: 34/2,
+    flex:1
   }
 });
 

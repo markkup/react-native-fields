@@ -73,7 +73,8 @@ let formStyles = StyleSheet.create({
     borderTopColor: "#DDDDDD",
     borderTopWidth: StyleSheet.hairlineWidth,
     backgroundColor: "white",
-    justifyContent: "center"
+    justifyContent: "center",
+    flexDirection: "row"
   },
   fieldText: {
     fontSize: 34/2,

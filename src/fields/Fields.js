@@ -20,6 +20,11 @@ export class FieldGroup extends Component {
     onChange: () => {}
   }
 
+  constructor() {
+    super();
+    this.fieldGroup = true;
+  }
+
   render() {
     // if a title was passed, create a text header
     // otherwise show a gutter if not explicitly disabled

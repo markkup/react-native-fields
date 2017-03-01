@@ -20,15 +20,14 @@ export class Form extends React.Component {
       if (!child) {
         return;
       }
-        var isGroup = child.type.name == "FieldGroup";
-        wrappedChildren.push(React.cloneElement(child, {
-          key: child.ref || child.type+i,
-          fieldRef : child.ref,
-          ref: child.ref,
-          onFocus:this._handleFieldFocused.bind(this),
-          onChange:isGroup ? this._handleFieldChange.bind(this) : this._handleFieldChange.bind(this, child.ref)
-        }
-      ));
+      var isGroup = this._isFieldGroup(child);
+      wrappedChildren.push(React.cloneElement(child, {
+        key: child.ref || child.type+i,
+        fieldRef : child.ref,
+        ref: child.ref,
+        onFocus:this._handleFieldFocused.bind(this),
+        onChange:isGroup ? this._handleFieldChange.bind(this) : this._handleFieldChange.bind(this, child.ref)
+      }));
     }, this);
 
     return (
@@ -36,6 +35,17 @@ export class Form extends React.Component {
           {wrappedChildren}
       </View>
     );
+  }
+
+  // HACK: until i can figure out a better way to do this
+  _isFieldGroup(child) {
+    try {
+      child.fieldGroup;
+      return true;
+    }
+    catch (e) {
+      return false;
+    }
   }
 
   _handleFieldFocused(event, inputHandle){

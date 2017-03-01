@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactNative, { Platform } from 'react-native';
-import {Field} from './Field.js';
-const {View, StyleSheet, TextInput, Text} = ReactNative;
+import { Field } from './Field.js';
+const { View, StyleSheet, TextInput, Text } = ReactNative;
 import Styles, { Color, Dims } from "../styles"
 
 function validateEmail(email) {

@@ -1,9 +1,7 @@
-'use strict';
-
-import React from 'react';
-let { View, StyleSheet, Text, Switch} = require('react-native');
-
-import {SwitchComponent} from '../lib/SwitchComponent';
+import React from "react"
+import { View, StyleSheet, Text, Switch} from "react-native"
+import {SwitchComponent} from "../lib/SwitchComponent"
+import Styles, { Color, Dims } from "../styles"
 
 export class SwitchField extends React.Component{
   setValue(value){
@@ -19,7 +17,6 @@ export class SwitchField extends React.Component{
         formStyles.horizontalContainer,
         this.props.containerStyle
       ]}
-
       labelStyle = {[
         formStyles.fieldText,
         this.props.labelStyle
@@ -29,26 +26,30 @@ export class SwitchField extends React.Component{
         this.props.switchStyle
       ]}
       />
-
     )
   }
-
 }
 
-
-
-  let formStyles = StyleSheet.create({
-    fieldContainer:{
-      borderBottomWidth: 1,
-      borderBottomColor: '#C8C7CC',
-      backgroundColor: 'white',
-      justifyContent: 'center',
-      height: 45
-    },
-    horizontalContainer:{
-      flexDirection: 'row',
-
-      justifyContent: 'flex-start'
-    },
-
-  });
+let formStyles = StyleSheet.create({
+  fieldContainer:{
+    borderTopColor: "#DDDDDD",
+    borderTopWidth: StyleSheet.hairlineWidth,
+    backgroundColor: "white",
+    justifyContent: "center",
+    height: 45
+  },
+  horizontalContainer:{
+    flexDirection: "row",
+    justifyContent: "flex-start",
+    paddingLeft: Dims.horzPadding,
+    paddingRight: Dims.horzPadding,
+  },
+  fieldText:{
+    fontSize: 34/2,
+    paddingLeft: 0,
+    paddingRight: 10,
+    marginTop: 5,
+    justifyContent: "center",
+    lineHeight: 32
+  }
+})

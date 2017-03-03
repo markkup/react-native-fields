@@ -1,10 +1,6 @@
-'use strict';
-
-import React from 'react';
-let { View, StyleSheet, Text, Switch} = require('react-native');
-
-import {SwitchComponent} from '../lib/SwitchComponent';
-
+import React from "react"
+import { View, StyleSheet, Text, Switch} from "react-native"
+import {SwitchComponent} from "../lib/SwitchComponent"
 import Styles, { Color, Dims } from "../styles"
 
 export class SwitchField extends React.Component{

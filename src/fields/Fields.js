@@ -1,21 +1,33 @@
 import React, { Component, PropTypes } from "react"
-import { StyleSheet, View, Text, TouchableHighlight, ActivityIndicator, ScrollView, TouchableWithoutFeedback, Image } from "react-native"
+import { StyleSheet, View, Text, TouchableHighlight, TouchableOpacity, ActivityIndicator, ScrollView, TouchableWithoutFeedback, Image } from "react-native"
 import { RegularText, BoldText, SmallText } from "./StyledText"
 import ReadMore from "./ReadMore"
 import SimpleLineIcons from "react-native-vector-icons/SimpleLineIcons"
+import Octicons from "react-native-vector-icons/Octicons"
+import MaterialIcons from "react-native-vector-icons/MaterialIcons"
+import Ionicons from "react-native-vector-icons/Ionicons"
 import Styles, { Color, Dims } from "../styles"
 
 export class FieldGroup extends Component {
   static propTypes = {
-    title: PropTypes.string,
-    gutter: PropTypes.bool,
-    onFocus: PropTypes.func,
-    onChange: PropTypes.func
+    title: React.PropTypes.string,
+    gutter: React.PropTypes.bool,
+    link: React.PropTypes.oneOfType([
+      React.PropTypes.string,
+      React.PropTypes.bool
+    ]),
+    linkColor: React.PropTypes.string,
+    onPressLink: React.PropTypes.func,
+    onFocus: React.PropTypes.func,
+    onChange: React.PropTypes.func
   }
 
   static defaultProps = {
     title: null,
     gutter: true,
+    link: "",
+    linkColor: Color.tint,
+    onPressLink: () => {},
     onFocus: () => {},
     onChange: () => {}
   }
@@ -26,14 +38,29 @@ export class FieldGroup extends Component {
   }
 
   render() {
+    // if link was passed, create a touchable link
+    // on the right side
+    let link = null;
+    if (this.props.link) {
+      link = <TouchableOpacity 
+          style={styles.fieldGroupHeaderLink}
+          onPress={() => {}}>
+          <Text
+            style={[styles.fieldGroupHeaderLinkText, {color:this.props.linkColor}]}>
+            {this.props.link}
+          </Text>
+        </TouchableOpacity>
+    }
+
     // if a title was passed, create a text header
     // otherwise show a gutter if not explicitly disabled
     let header = null;
-    if (this.props.title) {
-        header = (<View style={styles.fieldLabel}>
-          <SmallText style={styles.fieldLabelText}>
+    if (this.props.title || this.props.link) {
+        header = (<View style={styles.fieldGroupHeader}>
+          <SmallText style={styles.fieldGroupHeaderText}>
             {this.props.title.toUpperCase()}
           </SmallText>
+          {link}
         </View>)
     }
     else if (this.props.gutter) {
@@ -131,11 +158,15 @@ export class TouchableField extends Component {
 
   static propTypes = {
     ...Field.propTypes,
-    onPress: PropTypes.func,
-    tint: PropTypes.string,
-    accessory: PropTypes.bool,
-    icon: PropTypes.string,
-    iconTint: PropTypes.string
+    onPress: React.PropTypes.func,
+    tint: React.PropTypes.string,
+    accessory: React.PropTypes.oneOfType([
+      React.PropTypes.bool,
+      React.PropTypes.string,
+      React.PropTypes.element
+    ]),
+    icon: React.PropTypes.string,
+    iconTint: React.PropTypes.string
   }
 
   static defaultProps = {
@@ -151,9 +182,29 @@ export class TouchableField extends Component {
     let contents = (<RegularText style={{color: this.props.tint}}>{this.props.text}</RegularText>);
     if (this.props.children)
       contents = this.props.children;
-    let accessory = (<SimpleLineIcons name="arrow-right" size={12} color="#999" />);
-    if (!this.props.accessory)
-      accessory = null;
+    let accessory = null;
+    if (typeof this.props.accessory === "boolean" && this.props.accessory === true) {
+      accessory = (<SimpleLineIcons name="arrow-right" size={12} color="#999" />);
+    }
+    else if (typeof this.props.accessory === "string") {
+      switch (this.props.accessory) {
+        case "check": {
+          accessory = (<MaterialIcons name="check" size={18} color="#999" />);
+          break;
+        }
+        case "arrow": {
+          accessory = (<Ionicons name="ios-arrow-forward" size={20} color="#999" style={{paddingRight:4}} />);
+          break;
+        }
+        case "bullet": {
+          accessory = (<Octicons name="primitive-dot" size={12} color="#999" style={{paddingRight:0}} />);
+          break;
+        }
+      }
+    }
+    else if (typeof this.props.accessory === "object") {
+      accessory = this.props.accessory;
+    }
     let iconColor = this.props.iconTint;
     if (!iconColor)
       iconColor = this.props.tint;
@@ -309,14 +360,23 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     paddingHorizontal: Dims.horzPadding,
   },
-  fieldLabel: {
+  fieldGroupHeader: {
+    flexDirection: "row",
     marginTop: 20,
     paddingLeft: Dims.horzPadding,
     paddingBottom: 5,
+    height: 20
   },
-  fieldLabelText: {
-    color: '#6D6D72',
+  fieldGroupHeaderText: {
+    flex: 1,
+    color: "#6D6D72",
     fontSize: 8
+  },
+  fieldGroupHeaderLink: {
+    paddingHorizontal: Dims.horzPadding,
+  },
+  fieldGroupHeaderLinkText: {
+
   },
   fieldAction: {
     paddingVertical: 8,

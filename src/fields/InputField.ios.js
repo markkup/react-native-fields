@@ -26,7 +26,9 @@ export class InputField extends Component {
         (this.props.label)?formStyles.textRight:{},
         this.props.style
       ]}
-      containerStyle={[formStyles.fieldContainer,
+      containerStyle={[
+        {borderTopColor: Color.border},
+        formStyles.fieldContainer,
         formStyles.horizontalContainer,
         this.props.containerStyle,
       ]}
@@ -41,15 +43,8 @@ export class InputField extends Component {
 
 InputField.propTypes = {
   multiline: React.PropTypes.bool,
-  placeholder:React.PropTypes.string,
+  placeholder: React.PropTypes.string
 }
-
-let fieldStyles =StyleSheet.create({
-  input:{
-    paddingLeft: 10,
-    paddingRight: 10,
-  },
-});
 
 let formStyles = StyleSheet.create({
   textRight: {
@@ -60,17 +55,11 @@ let formStyles = StyleSheet.create({
     fontSize: 34/2,
     paddingBottom: 10
   },
-  separatorContainer: {
-    paddingTop: 35,
-    borderBottomColor: "#DDDDDD",
-    borderBottomWidth: StyleSheet.hairlineWidth
-  },
   horizontalContainer: {
     paddingLeft: Dims.horzPadding,
     paddingRight: Dims.horzPadding
   },
   fieldContainer: {
-    borderTopColor: "#DDDDDD",
     borderTopWidth: StyleSheet.hairlineWidth,
     backgroundColor: "white",
     justifyContent: "center",

@@ -1,17 +1,20 @@
-const Color = {
+import { Platform } from "react-native"
+
+let Color = {
     text: "#000",
     background: "white",
-    tint: "rgb(0, 122, 255)"
+    tint: "rgb(0, 122, 255)",
+    border: "#DDDDDD"
 }
 
-const Dims = {
+let Dims = {
     horzPadding: 16
 }
 
-const TextSize = {
+let TextSize = {
     tiny: 12,
     small: 14,
-    normal: 16,
+    normal: Platform.OS === "ios" ? 18 : 16,
     large: 18
 }
 

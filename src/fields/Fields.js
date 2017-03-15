@@ -16,6 +16,7 @@ export class FieldGroup extends Component {
       React.PropTypes.string,
       React.PropTypes.bool
     ]),
+    borderColor: React.PropTypes.string,
     linkColor: React.PropTypes.string,
     onPressLink: React.PropTypes.func,
     onFocus: React.PropTypes.func,
@@ -26,7 +27,8 @@ export class FieldGroup extends Component {
     title: null,
     gutter: true,
     link: "",
-    linkColor: Color.tint,
+    linkColor: null,
+    borderColor: null,
     onPressLink: () => {},
     onFocus: () => {},
     onChange: () => {}
@@ -41,12 +43,13 @@ export class FieldGroup extends Component {
     // if link was passed, create a touchable link
     // on the right side
     let link = null;
+    let linkColor = this.props.linkColor || Color.tint;
     if (this.props.link) {
       link = <TouchableOpacity 
           style={styles.fieldGroupHeaderLink}
-          onPress={() => {}}>
+          onPress={this.props.onPressLink}>
           <Text
-            style={[styles.fieldGroupHeaderLinkText, {color:this.props.linkColor}]}>
+            style={[styles.fieldGroupHeaderLinkText, {color:linkColor, fontSize:16}]}>
             {this.props.link}
           </Text>
         </TouchableOpacity>
@@ -85,13 +88,15 @@ export class FieldGroup extends Component {
       }))
     }, this)
 
+    let borderColor = this.props.borderColor || Color.border;
+
     return (
       <View>
         {header}
         <View style={[styles.fieldGroup, this.props.style]}>
           {wrappedChildren}
         </View>
-        <View style={styles.fieldBorder} />
+        <View style={{height: StyleSheet.hairlineWidth, backgroundColor: borderColor}} />
       </View>
     );
   }
@@ -108,9 +113,11 @@ export class FieldGroup extends Component {
 export class Field extends Component {
 
   static propTypes = {
+    borderColor: React.PropTypes.string,
   }
 
   static defaultProps = {
+    borderColor: null,
     style: {}
   }
 
@@ -122,12 +129,13 @@ export class Field extends Component {
     let contents = (<RegularText style={{color: this.props.tint}}>{this.props.text}</RegularText>);
     if (this.props.children)
       contents = this.props.children;
-    let border = <View style={styles.fieldBorder} />;
+    let borderColor = this.props.borderColor || Color.border;
+    let border = <View style={{height: StyleSheet.hairlineWidth, backgroundColor: borderColor}} />;
     return (
       <View ref={"field"}>
         {border}
-        <View style={[styles.field, this.props.style]}>
-          <View style={styles.fieldBody}>
+        <View style={[styles.field]}>
+          <View style={[styles.fieldBody, this.props.style]}>
             {contents}
           </View>
         </View>
@@ -172,14 +180,16 @@ export class TouchableField extends Component {
   static defaultProps = {
     ...Field.defaultProps,
     onPress: () => {},
-    tint: Color.tint,
+    tint: null,
     accessory: false,
     icon: "",
     iconTint: null
   }
 
   render() {
-    let contents = (<RegularText style={{color: this.props.tint}}>{this.props.text}</RegularText>);
+    let tint = this.props.tint || Color.tint;
+
+    let contents = (<RegularText style={{color: tint}}>{this.props.text}</RegularText>);
     if (this.props.children)
       contents = this.props.children;
     let accessory = null;
@@ -207,7 +217,7 @@ export class TouchableField extends Component {
     }
     let iconColor = this.props.iconTint;
     if (!iconColor)
-      iconColor = this.props.tint;
+      iconColor = tint;
     let icon = null;
     if (this.props.icon != "")
       icon = (<View><SimpleLineIcons name={this.props.icon} size={20} color={iconColor} style={{marginRight:10}} /></View>)
@@ -230,12 +240,22 @@ export class TouchableField extends Component {
 }
 
 export class DescriptionField extends Component {
+
+  static propTypes = {
+    numberOfLines: PropTypes.number
+  }
+
+  static defaultProps = {
+    numberOfLines: 3,
+    style: {}
+  }
+
   render() {
-    let { text } = this.props;
+    let { text, numberOfLines } = this.props;
     return (
       <Field {...this.props}>
         <ReadMore
-            numberOfLines={6}
+            numberOfLines={numberOfLines}
             renderTruncatedFooter={this._renderTruncatedFooter}
             renderRevealedFooter={this._renderRevealedFooter}>
             <SmallText style={styles.fieldText}>
@@ -348,13 +368,13 @@ class InstagramPhoto extends React.Component {
   }
 }
 
+function getBorderColor() {
+  return Color.tint;
+}
+
 const styles = StyleSheet.create({
   field: {
     backgroundColor: '#fff',
-  },
-  fieldBorder: {
-    height: StyleSheet.hairlineWidth,
-    backgroundColor: '#DDDDDD',
   },
   fieldBody: {
     paddingVertical: 12,
@@ -376,7 +396,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: Dims.horzPadding,
   },
   fieldGroupHeaderLinkText: {
-
   },
   fieldAction: {
     paddingVertical: 8,
@@ -389,10 +408,6 @@ const styles = StyleSheet.create({
   },
   fieldText: {
     fontSize: 14,
-    color: '#424242',
-  },
-  fieldActionText: {
-    fontSize: 13,
     color: '#424242',
   },
   fieldActionSubtitleText: {

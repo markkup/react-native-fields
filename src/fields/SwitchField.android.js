@@ -1,6 +1,6 @@
 import React from "react"
 import { View, StyleSheet, Text, Switch} from "react-native"
-import {SwitchComponent} from "../lib/SwitchComponent"
+import { SwitchComponent } from "../lib/SwitchComponent"
 import Styles, { Color, Dims } from "../styles"
 
 export class SwitchField extends React.Component{
@@ -13,6 +13,7 @@ export class SwitchField extends React.Component{
       {...this.props}
       ref='fieldComponent'
       containerStyle={[
+        {borderTopColor: Color.border},
         formStyles.fieldContainer,
         formStyles.horizontalContainer,
         this.props.containerStyle
@@ -32,7 +33,6 @@ export class SwitchField extends React.Component{
 
 let formStyles = StyleSheet.create({
   fieldContainer:{
-    borderTopColor: "#DDDDDD",
     borderTopWidth: StyleSheet.hairlineWidth,
     backgroundColor: "white",
     justifyContent: "center",

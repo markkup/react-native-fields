@@ -2,6 +2,14 @@ import React, { Component, PropTypes } from "react"
 import { StyleSheet, Text } from "react-native"
 import Styles, { Color, Dims, TextSize } from "../styles"
 
+export class TinyText extends Component {
+  render() {
+    return (
+      <Text {...this.props} style={[this.props.style, styles.tiny]} />
+    );
+  }
+}
+
 export class SmallText extends Component {
   render() {
     return (
@@ -40,6 +48,9 @@ const styles = StyleSheet.create({
   },
   small: {
     fontSize: TextSize.small
+  },
+  tiny: {
+    fontSize: TextSize.tiny
   },
   light: {
     fontWeight: "100",

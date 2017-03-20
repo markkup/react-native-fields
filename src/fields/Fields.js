@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from "react"
 import { StyleSheet, View, Text, TouchableHighlight, TouchableOpacity, ActivityIndicator, ScrollView, TouchableWithoutFeedback, Image } from "react-native"
-import { RegularText, BoldText, SmallText } from "./StyledText"
+import { RegularText, BoldText, SmallText, TinyText } from "./StyledText"
 import ReadMore from "./ReadMore"
 import SimpleLineIcons from "react-native-vector-icons/SimpleLineIcons"
 import Octicons from "react-native-vector-icons/Octicons"
@@ -60,9 +60,9 @@ export class FieldGroup extends Component {
     let header = null;
     if (this.props.title || this.props.link) {
         header = (<View style={styles.fieldGroupHeader}>
-          <SmallText style={styles.fieldGroupHeaderText}>
+          <TinyText style={styles.fieldGroupHeaderText}>
             {this.props.title.toUpperCase()}
-          </SmallText>
+          </TinyText>
           {link}
         </View>)
     }
@@ -162,11 +162,62 @@ export class FieldGutter extends Component {
   }
 }
 
-export class TouchableField extends Component {
+export class SelectField extends Component {
 
   static propTypes = {
     ...Field.propTypes,
     onPress: React.PropTypes.func,
+    text: React.PropTypes.string.isRequired,
+    value: React.PropTypes.string,
+    icon: React.PropTypes.string,
+    iconTint: React.PropTypes.string
+  }
+
+  static defaultProps = {
+    ...Field.defaultProps,
+    onPress: () => {},
+    value: "",
+    icon: "",
+    iconTint: null
+  }
+
+  render() {
+    let tint = Color.tint;
+    let contents = (<RegularText style={{color: "#000"}}>{this.props.text}</RegularText>);
+    let accessory = (<Ionicons name="ios-arrow-forward" size={20} color="#BBB" style={{paddingRight:4,paddingTop:2}} />);
+    let iconColor = this.props.iconTint;
+    if (!iconColor)
+      iconColor = tint;
+    let icon = null;
+    if (this.props.icon != "")
+      icon = (<View><SimpleLineIcons name={this.props.icon} size={20} color={iconColor} style={{marginRight:10}} /></View>)
+    return (
+      <TouchableHighlight onPress={this.props.onPress}>
+        <Field {...this.props}>
+          <View style={styles.touchableContainer}>
+            {icon}
+            <View style={{flex:1}}>
+              {contents}
+            </View>
+            <View>
+              <RegularText style={{color:"#BBB", paddingRight: 10}}>{this.props.value}</RegularText>
+            </View>
+            <View style={{justifyContent:"center"}}>
+              {accessory}
+            </View>
+          </View>
+        </Field>
+      </TouchableHighlight>
+    );
+  }
+}
+
+export class TouchableField extends Component {
+
+  static propTypes = {
+    ...Field.propTypes,
+    onPress: React.PropTypes.func.isRequired,
+    text: React.PropTypes.string.isRequired,
     tint: React.PropTypes.string,
     accessory: React.PropTypes.oneOfType([
       React.PropTypes.bool,
@@ -188,26 +239,25 @@ export class TouchableField extends Component {
 
   render() {
     let tint = this.props.tint || Color.tint;
-
     let contents = (<RegularText style={{color: tint}}>{this.props.text}</RegularText>);
     if (this.props.children)
       contents = this.props.children;
     let accessory = null;
     if (typeof this.props.accessory === "boolean" && this.props.accessory === true) {
-      accessory = (<SimpleLineIcons name="arrow-right" size={12} color="#999" />);
+      accessory = (<SimpleLineIcons name="arrow-right" size={12} color={tint} />);
     }
     else if (typeof this.props.accessory === "string") {
       switch (this.props.accessory) {
         case "check": {
-          accessory = (<MaterialIcons name="check" size={18} color="#999" />);
+          accessory = (<MaterialIcons name="check" size={18} color={tint} />);
           break;
         }
         case "arrow": {
-          accessory = (<Ionicons name="ios-arrow-forward" size={20} color="#999" style={{paddingRight:4}} />);
+          accessory = (<Ionicons name="ios-arrow-forward" size={20} color="#BBB" style={{paddingRight:4}} />);
           break;
         }
         case "bullet": {
-          accessory = (<Octicons name="primitive-dot" size={12} color="#999" style={{paddingRight:0}} />);
+          accessory = (<Octicons name="primitive-dot" size={12} color={tint} style={{paddingRight:0}} />);
           break;
         }
       }
@@ -268,17 +318,17 @@ export class DescriptionField extends Component {
 
   _renderTruncatedFooter = (handlePress) => {
     return (
-      <SmallText style={{color: Color.tint, marginTop: 7}} onPress={handlePress}>
+      <TinyText style={{color: Color.tint, marginTop: 7}} onPress={handlePress}>
         Read more
-      </SmallText>
+      </TinyText>
     );
   }
 
   _renderRevealedFooter = (handlePress) => {
     return (
-      <SmallText style={{color: Color.tint, marginTop: 7}} onPress={handlePress}>
+      <TinyText style={{color: Color.tint, marginTop: 7}} onPress={handlePress}>
         Show less
-      </SmallText>
+      </TinyText>
     );
   }
 }

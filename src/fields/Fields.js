@@ -12,10 +12,7 @@ export class FieldGroup extends Component {
   static propTypes = {
     title: React.PropTypes.string,
     gutter: React.PropTypes.bool,
-    link: React.PropTypes.oneOfType([
-      React.PropTypes.string,
-      React.PropTypes.bool
-    ]),
+    link: React.PropTypes.string,
     borderColor: React.PropTypes.string,
     linkColor: React.PropTypes.string,
     onPressLink: React.PropTypes.func,
@@ -48,10 +45,10 @@ export class FieldGroup extends Component {
       link = <TouchableOpacity 
           style={styles.fieldGroupHeaderLink}
           onPress={this.props.onPressLink}>
-          <Text
+          <TinyText
             style={[styles.fieldGroupHeaderLinkText, {color:linkColor, fontSize:16}]}>
             {this.props.link}
-          </Text>
+          </TinyText>
         </TouchableOpacity>
     }
 
@@ -114,10 +111,12 @@ export class Field extends Component {
 
   static propTypes = {
     borderColor: React.PropTypes.string,
+    color: React.PropTypes.string
   }
 
   static defaultProps = {
     borderColor: null,
+    color: "#000",
     style: {}
   }
 
@@ -126,7 +125,7 @@ export class Field extends Component {
   }
 
   render() {
-    let contents = (<RegularText style={{color: this.props.tint}}>{this.props.text}</RegularText>);
+    let contents = (<RegularText style={{color: this.props.color}}>{this.props.text}</RegularText>);
     if (this.props.children)
       contents = this.props.children;
     let borderColor = this.props.borderColor || Color.border;
@@ -217,7 +216,7 @@ export class TouchableField extends Component {
   static propTypes = {
     ...Field.propTypes,
     onPress: React.PropTypes.func.isRequired,
-    text: React.PropTypes.string.isRequired,
+    text: React.PropTypes.string,
     tint: React.PropTypes.string,
     accessory: React.PropTypes.oneOfType([
       React.PropTypes.bool,
@@ -231,6 +230,7 @@ export class TouchableField extends Component {
   static defaultProps = {
     ...Field.defaultProps,
     onPress: () => {},
+    text: null,
     tint: null,
     accessory: false,
     icon: "",
@@ -292,11 +292,13 @@ export class TouchableField extends Component {
 export class DescriptionField extends Component {
 
   static propTypes = {
-    numberOfLines: PropTypes.number
+    numberOfLines: React.PropTypes.number,
+    color: React.PropTypes.string
   }
 
   static defaultProps = {
     numberOfLines: 3,
+    color: "#666",
     style: {}
   }
 
@@ -308,7 +310,7 @@ export class DescriptionField extends Component {
             numberOfLines={numberOfLines}
             renderTruncatedFooter={this._renderTruncatedFooter}
             renderRevealedFooter={this._renderRevealedFooter}>
-            <SmallText style={styles.fieldText}>
+            <SmallText style={[{color: this.props.color},styles.fieldText]}>
             {text}
             </SmallText>
         </ReadMore>

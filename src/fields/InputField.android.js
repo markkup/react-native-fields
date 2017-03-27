@@ -77,7 +77,8 @@ let formStyles = StyleSheet.create({
     paddingLeft: 0,
     paddingRight: 0,
     fontSize: 34/2,
-    flex: 1
+    flex: 1,
+    textAlignVertical: "top"
   }
 });
 

@@ -56,47 +56,64 @@ export class DatePickerComponent extends React.Component {
   }
   
   render(){
+
+    let valueString = this.props.dateTimeFormat(this.state.date, this.props.mode);
+
+    let datePicker= <DatePickerAndroid
+      {...this.props}
+      date={this.state.date || new Date()}
+      onDateChange={this.handleValueChange.bind(this)}
+    />
+
+    let pickerWrapper = React.cloneElement(this.props.pickerWrapper,{onHidePicker:()=>{this.setState({isPickerVisible:false})}},datePicker);
+
+    let iconLeft = this.props.iconLeft,
+        iconRight = this.props.iconRight;
+
+    if(iconLeft && iconLeft.constructor === Array){
+      iconLeft = (!this.state.isPickerVisible)
+                  ? iconLeft[0]
+                  : iconLeft[1]
+    }
+
+    if(iconRight && iconRight.constructor === Array){
+      iconRight = (!this.state.isPickerVisible)
+                  ? iconRight[0]
+                  : iconRight[1]
+    }
+
     let labelComponent = (this.props.labelComponent)
                       ? this.props.labelComponent
                       : <Text style={[formStyles.fieldText, this.props.labelStyle]}>{this.props.label}</Text>
-    return(<View><Field
-      {...this.props}
-      ref='inputBox'
-      onPress={this._togglePicker.bind(this)}>
-      <View style={[formStyles.fieldContainer,
-          formStyles.horizontalContainer,
-          this.props.containerStyle]}
-        onLayout={this.handleLayoutChange.bind(this)}>
-    {(this.props.iconLeft)
-          ? this.props.iconLeft
-          : null
-        }
-        {labelComponent}
-        <View style={[formStyles.alignRight, formStyles.horizontalContainer]}>
-          <Text style={[formStyles.fieldValue,this.props.valueStyle ]}>{
-          (this.state.date)?this.state.date.toLocaleDateString():""
-        }</Text>
+    return (
+      <View>
+        <Field {...this.props}
+          ref='inputBox'
+          onPress={this._togglePicker.bind(this)}>
+          <View style={[formStyles.fieldContainer,
+            formStyles.horizontalContainer,
+            this.props.containerStyle]}
+            onLayout={this.handleLayoutChange.bind(this)}>
+            {(iconLeft)
+              ? iconLeft
+              : null
+            }
+            {labelComponent}
+            <View style={[formStyles.alignRight, formStyles.horizontalContainer, this.props.valueContainerStyle]}>
+              <Text style={[formStyles.fieldValue,this.props.valueStyle]}>{ valueString }</Text>
 
+              {(iconRight)
+                ? iconRight
+                : null
+              }
+            </View>
 
-        </View>
-    {(this.props.iconRight)
-            ? this.props.iconRight
-            : null
+          </View>
+        </Field>
+        {(this.state.isPickerVisible)?
+          pickerWrapper : null
         }
       </View>
-      </Field>
-      {(this.state.isPickerVisible)?
-        <DatePickerAndroid
-          {...this.props}
-          date={this.state.date || new Date()}
-
-          onDateChange={this.handleValueChange.bind(this)}
-        />
-
-      : null
-    }
-
-  </View>
     )
   }
 

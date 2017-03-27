@@ -46,7 +46,7 @@ export class DatePickerComponent extends React.Component {
           minuteInterval, mode,
           onDateChange,   timeZoneOffsetInMinutes } = this.props;
 
-    let  valueString = this.props.dateTimeFormat(this.state.date, this.props.mode);
+    let valueString = this.props.dateTimeFormat(this.state.date, this.props.mode);
 
     let datePicker= <DatePickerIOS
       maximumDate = {maximumDate}
@@ -68,46 +68,47 @@ export class DatePickerComponent extends React.Component {
                   ? iconLeft[0]
                   : iconLeft[1]
     }
+
     if(iconRight && iconRight.constructor === Array){
       iconRight = (!this.state.isPickerVisible)
                   ? iconRight[0]
                   : iconRight[1]
     }
+
     let labelComponent = (this.props.labelComponent)
                       ? this.props.labelComponent
                       : <Text style={[formStyles.fieldText, this.props.labelStyle]}>{this.props.label}</Text>
-    return(<View><Field
-      {...this.props}
-      ref='inputBox'
-      onPress={this._togglePicker.bind(this)}>
-      <View style={[formStyles.fieldContainer,
-          formStyles.horizontalContainer,
-          this.props.containerStyle]}
-          onLayout={this.handleLayoutChange.bind(this)}>
-          {(iconLeft)
-            ? iconLeft
-            : null
-          }
-          {labelComponent}
-          <View style={[formStyles.alignRight, formStyles.horizontalContainer, this.props.valueContainerStyle]}>
-            <Text style={[formStyles.fieldValue,this.props.valueStyle ]}>{ valueString }</Text>
-
-            {(iconRight)
-              ? iconRight
+    return (
+      <View>
+        <Field {...this.props}
+          ref='inputBox'
+          onPress={this._togglePicker.bind(this)}>
+          <View style={[formStyles.fieldContainer,
+            formStyles.horizontalContainer,
+            this.props.containerStyle]}
+            onLayout={this.handleLayoutChange.bind(this)}>
+            {(iconLeft)
+              ? iconLeft
               : null
             }
+            {labelComponent}
+            <View style={[formStyles.alignRight, formStyles.horizontalContainer, this.props.valueContainerStyle]}>
+              <Text style={[formStyles.fieldValue,this.props.valueStyle]}>{ valueString }</Text>
+
+              {(iconRight)
+                ? iconRight
+                : null
+              }
+            </View>
+
           </View>
-
-        </View>
-      </Field>
-      {(this.state.isPickerVisible)?
-        pickerWrapper : null
-      }
-
-    </View>
-  )
-}
-
+        </Field>
+        {(this.state.isPickerVisible)?
+          pickerWrapper : null
+        }
+      </View>
+    )
+  }
 }
 
 DatePickerComponent.propTypes = {

@@ -110,13 +110,19 @@ export class FieldGroup extends Component {
 export class Field extends Component {
 
   static propTypes = {
+    text: React.PropTypes.string,
+    value: React.PropTypes.string,
     borderColor: React.PropTypes.string,
-    color: React.PropTypes.string
+    color: React.PropTypes.string,
+    colorValue: React.PropTypes.string
   }
 
   static defaultProps = {
+    tex: "",
+    value: "",
     borderColor: null,
     color: "#000",
+    colorValue: "#999",
     style: {}
   }
 
@@ -125,9 +131,18 @@ export class Field extends Component {
   }
 
   render() {
-    let contents = (<RegularText style={{color: this.props.color}}>{this.props.text}</RegularText>);
-    if (this.props.children)
+    let contents = null;
+    if (this.props.children) {
       contents = this.props.children;
+    }
+    else {
+      contents = (
+        <View style={{flexDirection: "row"}}>
+          <RegularText style={{color: this.props.color,flex: 1}}>{this.props.text}</RegularText>
+          <RegularText style={{color: this.props.colorValue}}>{this.props.value}</RegularText>
+        </View>
+      )
+    }
     let borderColor = this.props.borderColor || Color.border;
     let border = <View style={{height: StyleSheet.hairlineWidth, backgroundColor: borderColor}} />;
     return (

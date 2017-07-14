@@ -19,18 +19,22 @@ export class InputField extends Component {
 
       ref="fieldComponent"
       onValidation={this._handleValidation.bind(this)}
-      labelStyle={[formStyles.fieldText, 
-        this.props.labelStyle]}
-      inputStyle={[formStyles.input,
+      labelStyle={[
+        {color: Color.text},
+        formStyles.fieldText, 
+        this.props.labelStyle
+      ]}
+      inputStyle={[
+        formStyles.input,
         (this.props.multiline)?formStyles.multiline:{},
         (this.props.label)?formStyles.textRight:{},
         this.props.style
       ]}
       containerStyle={[
-        {borderTopColor: Color.border},
+        {borderTopColor: Color.border, backgroundColor: Color.cellBackground, borderTopWidth: Dims.borderWidth},
         formStyles.fieldContainer,
         formStyles.horizontalContainer,
-        this.props.containerStyle,
+        this.props.containerStyle
       ]}
       />)
   }
@@ -60,8 +64,6 @@ let formStyles = StyleSheet.create({
     paddingRight: Dims.horzPadding
   },
   fieldContainer: {
-    borderTopWidth: StyleSheet.hairlineWidth,
-    backgroundColor: "white",
     justifyContent: "center",
     flexDirection: "row"
   },

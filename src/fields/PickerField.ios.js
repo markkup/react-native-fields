@@ -21,11 +21,21 @@ export class PickerField extends React.Component {
     return(<PickerComponent
       {...this.props}
       ref="fieldComponent"
-      labelStyle={[formStyles.fieldText, this.props.labelStyle]}
-      valueStyle = {[formStyles.fieldValue,this.props.valueStyle]}
-      valueContainerStyle = {[formStyles.alignRight,
-          formStyles.horizontalContainer, this.props.valueContainerStyle]}
+      labelStyle={[
+        {color: Color.text},
+        formStyles.fieldText, 
+        this.props.labelStyle]}
+      valueStyle = {[
+        {color: Color.tint},
+        formStyles.fieldValue,
+        this.props.valueStyle
+      ]}
+      valueContainerStyle = {[
+        formStyles.alignRight,
+        this.props.valueContainerStyle
+      ]}
       containerStyle={[
+        {borderTopColor: Color.border, backgroundColor: Color.cellBackground, borderTopWidth: Dims.borderWidth},
         formStyles.fieldContainer,
         formStyles.horizontalContainer,
         this.props.containerStyle,
@@ -36,52 +46,30 @@ export class PickerField extends React.Component {
 
   }
 
-
-
 let formStyles = StyleSheet.create({
-  form:{
-
-  },
   alignRight:{
-      marginTop: 7, position:'absolute', right: 10
-  },
-  noBorder:{
-    borderTopWidth: 0,
-    borderBottomWidth: 0
-  },
-  fieldsWrapper:{
-    // borderTopColor: '#afafaf',
-    // borderTopWidth: 1,
+    marginTop: 7
   },
   horizontalContainer:{
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
+    flexDirection: "row",
+    justifyContent: "flex-start",
     paddingLeft: Dims.horzPadding,
     paddingRight: Dims.horzPadding,
   },
   fieldContainer:{
-    borderTopColor: "#DDDDDD",
-    borderTopWidth: StyleSheet.hairlineWidth,
-    backgroundColor: 'white',
-    justifyContent: 'center',
-    height: 45
+    justifyContent: "flex-end"
   },
   fieldValue:{
     fontSize: 34/2,
-    paddingLeft: 10,
-    paddingRight: 10,
-    marginRight:10,
-    paddingTop: 4,
-    justifyContent: 'center',
-
-    color: Color.tint
+    justifyContent: 'flex-end',
+    paddingTop: 4
   },
   fieldText:{
     fontSize: 34/2,
     paddingLeft: 0,
     paddingRight: 10,
     marginTop: 5,
-    justifyContent: 'center',
-    lineHeight: 32
+    lineHeight: 32,
+    flex:1
   }
 })

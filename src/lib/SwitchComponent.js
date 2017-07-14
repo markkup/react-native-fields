@@ -32,7 +32,7 @@ export class SwitchComponent extends React.Component{
 
   render(){
     return(<Field {...this.props}>
-      <View style={this.props.containerStyle}
+      <View style={[{height: 52},this.props.containerStyle]}
         onLayout={this.handleLayoutChange.bind(this)}>
 
         <Text style={this.props.labelStyle}>{this.props.label}</Text>

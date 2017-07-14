@@ -57,7 +57,7 @@ export class FieldGroup extends Component {
     let header = null;
     if (this.props.title || this.props.link) {
         header = (<View style={styles.fieldGroupHeader}>
-          <TinyText style={styles.fieldGroupHeaderText}>
+          <TinyText style={[styles.fieldGroupHeaderText,{color:Color.heading}]}>
             {this.props.title.toUpperCase()}
           </TinyText>
           {link}
@@ -93,7 +93,7 @@ export class FieldGroup extends Component {
         <View style={[styles.fieldGroup, this.props.style]}>
           {wrappedChildren}
         </View>
-        <View style={{height: StyleSheet.hairlineWidth, backgroundColor: borderColor}} />
+        <View style={{height: Dims.borderWidth, backgroundColor: borderColor}} />
       </View>
     );
   }
@@ -138,17 +138,17 @@ export class Field extends Component {
     else {
       contents = (
         <View style={{flexDirection: "row"}}>
-          <RegularText style={{color: this.props.color,flex: 1}}>{this.props.text}</RegularText>
+          <RegularText style={{color: Color.text,flex: 1}}>{this.props.text}</RegularText>
           <RegularText style={{color: this.props.colorValue}}>{this.props.value}</RegularText>
         </View>
       )
     }
     let borderColor = this.props.borderColor || Color.border;
-    let border = <View style={{height: StyleSheet.hairlineWidth, backgroundColor: borderColor}} />;
+    let border = <View style={{height: Dims.borderWidth, backgroundColor: borderColor}} />;
     return (
       <View ref={"field"}>
         {border}
-        <View style={[styles.field]}>
+        <View style={[styles.field,{backgroundColor:Color.cellBackground}]}>
           <View style={[styles.fieldBody, this.props.style]}>
             {contents}
           </View>
@@ -239,7 +239,9 @@ export class TouchableField extends Component {
       React.PropTypes.element
     ]),
     icon: React.PropTypes.string,
-    iconTint: React.PropTypes.string
+    iconTint: React.PropTypes.string,
+    value: React.PropTypes.string,
+    valueTint: React.PropTypes.string
   }
 
   static defaultProps = {
@@ -249,7 +251,9 @@ export class TouchableField extends Component {
     tint: null,
     accessory: false,
     icon: "",
-    iconTint: null
+    iconTint: null,
+    value: "",
+    valueTint: "#999",
   }
 
   render() {
@@ -294,6 +298,9 @@ export class TouchableField extends Component {
             <View style={{flex:1}}>
               {contents}
             </View>
+            <View>
+              <RegularText style={{color:this.props.valueTint}}>{this.props.value}</RegularText>
+            </View>
             <View style={{justifyContent:"center"}}>
               {accessory}
             </View>
@@ -313,19 +320,20 @@ export class DescriptionField extends Component {
 
   static defaultProps = {
     numberOfLines: 3,
-    color: "#666",
     style: {}
   }
 
   render() {
-    let { text, numberOfLines } = this.props;
+    let { text, numberOfLines, color } = this.props;
+    if (!color)
+      color = Color.text;
     return (
       <Field {...this.props}>
         <ReadMore
             numberOfLines={numberOfLines}
             renderTruncatedFooter={this._renderTruncatedFooter}
             renderRevealedFooter={this._renderRevealedFooter}>
-            <SmallText style={[{color: this.props.color},styles.fieldText]}>
+            <SmallText style={[{color: color},styles.fieldText]}>
             {text}
             </SmallText>
         </ReadMore>
@@ -456,7 +464,6 @@ const styles = StyleSheet.create({
   },
   fieldGroupHeaderText: {
     flex: 1,
-    color: "#6D6D72",
     fontSize: 8
   },
   fieldGroupHeaderLink: {
@@ -474,8 +481,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
   },
   fieldText: {
-    fontSize: 14,
-    color: '#424242',
+    fontSize: 14
   },
   fieldActionSubtitleText: {
     fontSize: 12,

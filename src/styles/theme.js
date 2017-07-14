@@ -1,14 +1,16 @@
 import { Platform } from "react-native"
 
 let Color = {
-    text: "#000",
-    background: "white",
+    text: "#424242",
     tint: "rgb(0, 122, 255)",
-    border: "#DDDDDD"
+    border: "#DDDDDD",
+    cellBackground: "#fff",
+    //heading: "red" //#6D6D72"
 }
 
 let Dims = {
-    horzPadding: 16
+    horzPadding: 16,
+    borderWidth: 1
 }
 
 let TextSize = {

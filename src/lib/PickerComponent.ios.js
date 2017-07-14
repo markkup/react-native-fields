@@ -100,6 +100,7 @@ export class PickerComponent extends React.Component{
       // });
       let picker = <Picker ref='picker'
         {...this.props.pickerProps}
+        style={{backgroundColor: "white"}}
         selectedValue={this.state.value}
         onValueChange={this.handleValueChange.bind(this)}
         mode='dropdown'
@@ -135,8 +136,10 @@ export class PickerComponent extends React.Component{
         {...this.props}
         ref='inputBox'
         onPress={this._togglePicker.bind(this)}>
-        <View style={
-                      this.props.containerStyle}
+        <View style={[
+          {height: 52},
+          this.props.containerStyle
+        ]}
           onLayout={this.handleLayoutChange.bind(this)}>
           {(iconLeft)
             ? iconLeft
@@ -173,77 +176,3 @@ export class PickerComponent extends React.Component{
   PickerComponent.defaultProps = {
     pickerWrapper: <View/>
   }
-
-let formStyles = StyleSheet.create({
-  form:{
-
-  },
-  alignRight:{
-      marginTop: 7, position:'absolute', right: 10
-  },
-  noBorder:{
-    borderTopWidth: 0,
-    borderBottomWidth: 0
-  },
-  separatorContainer:{
-    paddingTop: 35,
-    borderBottomColor: '#C8C7CC',
-    borderBottomWidth: 1,
-
-  },
-  separator:{
-
-    paddingLeft: 10,
-    paddingRight: 10,
-    color: '#6D6D72',
-    paddingBottom: 7
-
-  },
-  fieldsWrapper:{
-    // borderTopColor: '#afafaf',
-    // borderTopWidth: 1,
-  },
-  horizontalContainer:{
-    flexDirection: 'row',
-
-    justifyContent: 'flex-start'
-  },
-  fieldContainer:{
-    borderBottomWidth: 1,
-    borderBottomColor: '#C8C7CC',
-    backgroundColor: 'white',
-    justifyContent: 'center',
-    height: 45
-  },
-  fieldValue:{
-    fontSize: 34/2,
-    paddingLeft: 10,
-    paddingRight: 10,
-    marginRight:10,
-    paddingTop: 4,
-    justifyContent: 'center',
-    color: '#C7C7CC'
-  },
-  fieldText:{
-    fontSize: 34/2,
-    paddingLeft: 10,
-    paddingRight: 10,
-    justifyContent: 'center',
-    lineHeight: 32
-  },
-  input:{
-    paddingLeft: 10,
-    paddingRight: 10,
-
-  },
-  helpTextContainer:{
-    marginTop:9,
-    marginBottom: 25,
-    paddingLeft: 20,
-    paddingRight: 20,
-
-  },
-  helpText:{
-    color: '#7a7a7a'
-  }
-})

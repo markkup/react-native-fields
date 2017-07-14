@@ -13,12 +13,13 @@ export class SwitchField extends React.Component{
       {...this.props}
       ref='fieldComponent'
       containerStyle={[
-        {borderTopColor: Color.border},
+        {borderTopColor: Color.border, backgroundColor: Color.cellBackground, borderTopWidth: Dims.borderWidth},
         formStyles.fieldContainer,
         formStyles.horizontalContainer,
         this.props.containerStyle
       ]}
       labelStyle = {[
+        {color: Color.text},
         formStyles.fieldText,
         this.props.labelStyle
       ]}
@@ -33,10 +34,7 @@ export class SwitchField extends React.Component{
 
 let formStyles = StyleSheet.create({
   fieldContainer:{
-    borderTopWidth: StyleSheet.hairlineWidth,
-    backgroundColor: "white",
-    justifyContent: "center",
-    height: 45
+    justifyContent: "center"
   },
   horizontalContainer:{
     flexDirection: "row",
@@ -49,7 +47,7 @@ let formStyles = StyleSheet.create({
     paddingLeft: 0,
     paddingRight: 10,
     marginTop: 5,
-    justifyContent: "center",
-    lineHeight: 32
+    lineHeight: 32,
+    flex:1
   }
 })

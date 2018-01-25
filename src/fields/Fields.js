@@ -118,7 +118,7 @@ export class Field extends Component {
   }
 
   static defaultProps = {
-    tex: "",
+    text: "",
     value: "",
     borderColor: null,
     color: "#000",

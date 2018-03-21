@@ -5,7 +5,7 @@ let Color = {
     tint: "rgb(0, 122, 255)",
     border: "#DDDDDD",
     cellBackground: "#fff",
-    //heading: "red" //#6D6D72"
+    heading: "red" //#6D6D72"
 }
 
 let Dims = {

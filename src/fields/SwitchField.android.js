@@ -13,12 +13,13 @@ export class SwitchField extends React.Component{
       {...this.props}
       ref='fieldComponent'
       containerStyle={[
-        {borderTopColor: Color.border},
+        {borderTopColor: Color.border, backgroundColor: Color.cellBackground, borderTopWidth: Dims.borderWidth},
         formStyles.fieldContainer,
         formStyles.horizontalContainer,
         this.props.containerStyle
       ]}
       labelStyle = {[
+        {color: Color.text},
         formStyles.fieldText,
         this.props.labelStyle
       ]}

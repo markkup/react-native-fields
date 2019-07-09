@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from "react"
+import React, { Component } from "react"
+import PropTypes from "prop-types"
 import { StyleSheet, View, Text, TouchableHighlight, TouchableOpacity, ActivityIndicator, ScrollView, TouchableWithoutFeedback, Image } from "react-native"
 import { RegularText, BoldText, SmallText, TinyText } from "./StyledText"
 import ReadMore from "./ReadMore"
@@ -10,14 +11,14 @@ import Styles, { Color, Dims } from "../styles"
 
 export class FieldGroup extends Component {
   static propTypes = {
-    title: React.PropTypes.string,
-    gutter: React.PropTypes.bool,
-    link: React.PropTypes.string,
-    borderColor: React.PropTypes.string,
-    linkColor: React.PropTypes.string,
-    onPressLink: React.PropTypes.func,
-    onFocus: React.PropTypes.func,
-    onChange: React.PropTypes.func
+    title: PropTypes.string,
+    gutter: PropTypes.bool,
+    link: PropTypes.string,
+    borderColor: PropTypes.string,
+    linkColor: PropTypes.string,
+    onPressLink: PropTypes.func,
+    onFocus: PropTypes.func,
+    onChange: PropTypes.func
   }
 
   static defaultProps = {
@@ -42,7 +43,7 @@ export class FieldGroup extends Component {
     let link = null;
     let linkColor = this.props.linkColor || Color.tint;
     if (this.props.link) {
-      link = <TouchableOpacity 
+      link = <TouchableOpacity
           style={styles.fieldGroupHeaderLink}
           onPress={this.props.onPressLink}>
           <TinyText
@@ -110,11 +111,11 @@ export class FieldGroup extends Component {
 export class Field extends Component {
 
   static propTypes = {
-    text: React.PropTypes.string,
-    value: React.PropTypes.string,
-    borderColor: React.PropTypes.string,
-    color: React.PropTypes.string,
-    colorValue: React.PropTypes.string
+    text: PropTypes.string,
+    value: PropTypes.string,
+    borderColor: PropTypes.string,
+    color: PropTypes.string,
+    colorValue: PropTypes.string
   }
 
   static defaultProps = {
@@ -180,11 +181,12 @@ export class SelectField extends Component {
 
   static propTypes = {
     ...Field.propTypes,
-    onPress: React.PropTypes.func,
-    text: React.PropTypes.string.isRequired,
-    value: React.PropTypes.string,
-    icon: React.PropTypes.string,
-    iconTint: React.PropTypes.string
+    onPress: PropTypes.func,
+    text: PropTypes.string.isRequired,
+    value: PropTypes.string,
+    icon: PropTypes.string,
+    iconTint: PropTypes.string,
+    numberOfLines: PropTypes.number
   }
 
   static defaultProps = {
@@ -192,13 +194,13 @@ export class SelectField extends Component {
     onPress: () => {},
     value: "",
     icon: "",
-    iconTint: null
+    iconTint: null,
+    numberOfLines: 1
   }
 
   render() {
     let tint = Color.tint;
-    let contents = (<RegularText style={{color: "#000"}}>{this.props.text}</RegularText>);
-    let accessory = (<Ionicons name="ios-arrow-forward" size={20} color="#BBB" style={{paddingRight:4,paddingTop:2}} />);
+    let accessory = <SimpleLineIcons name="arrow-right" size={12} color={tint} />;
     let iconColor = this.props.iconTint;
     if (!iconColor)
       iconColor = tint;
@@ -210,12 +212,8 @@ export class SelectField extends Component {
         <Field {...this.props}>
           <View style={styles.touchableContainer}>
             {icon}
-            <View style={{flex:1}}>
-              {contents}
-            </View>
-            <View>
-              <RegularText style={{color:"#BBB", paddingRight: 10}}>{this.props.value}</RegularText>
-            </View>
+            <RegularText style={{color: "#000"}}>{this.props.text}</RegularText>
+            <RegularText numberOfLines={this.props.numberOfLines} style={{flex:1,color:"#999",paddingRight:10,textAlign:'right'}}>{this.props.value}</RegularText>
             <View style={{justifyContent:"center"}}>
               {accessory}
             </View>
@@ -230,18 +228,18 @@ export class TouchableField extends Component {
 
   static propTypes = {
     ...Field.propTypes,
-    onPress: React.PropTypes.func.isRequired,
-    text: React.PropTypes.string,
-    tint: React.PropTypes.string,
-    accessory: React.PropTypes.oneOfType([
-      React.PropTypes.bool,
-      React.PropTypes.string,
-      React.PropTypes.element
+    onPress: PropTypes.func.isRequired,
+    text: PropTypes.string,
+    tint: PropTypes.string,
+    accessory: PropTypes.oneOfType([
+      PropTypes.bool,
+      PropTypes.string,
+      PropTypes.element
     ]),
-    icon: React.PropTypes.string,
-    iconTint: React.PropTypes.string,
-    value: React.PropTypes.string,
-    valueTint: React.PropTypes.string
+    icon: PropTypes.string,
+    iconTint: PropTypes.string,
+    value: PropTypes.string,
+    valueTint: PropTypes.string
   }
 
   static defaultProps = {
@@ -314,8 +312,8 @@ export class TouchableField extends Component {
 export class DescriptionField extends Component {
 
   static propTypes = {
-    numberOfLines: React.PropTypes.number,
-    color: React.PropTypes.string
+    numberOfLines: PropTypes.number,
+    color: PropTypes.string
   }
 
   static defaultProps = {
@@ -490,7 +488,7 @@ const styles = StyleSheet.create({
   },
   touchableContainer: {
     flexDirection: "row",
-    paddingTop: 3
+    paddingTop: 0
   },
   imageLoadingContainer: {
     alignItems: 'center',

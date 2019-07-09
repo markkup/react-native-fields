@@ -1,42 +1,47 @@
-import React from "react"
-import { View, StyleSheet, Text, Switch} from "react-native"
-import { Field } from "./Field";
+import PropTypes from 'prop-types';
+import React from 'react';
+import { Switch, Text, View, ViewPropTypes } from 'react-native';
 
-export class SwitchComponent extends React.Component{
-  constructor(props){
+import { Field } from './Field';
+
+export class SwitchComponent extends React.Component {
+  constructor(props) {
     super(props);
     this.state = {
       value: props.value,
     }
   }
 
-  handleLayoutChange(e){
-    let {x, y, width, height} = {... e.nativeEvent.layout};
-
+  handleLayoutChange(e) {
+    let { x, y, width, height } = { ...e.nativeEvent.layout };
     this.setState(e.nativeEvent.layout);
-    //e.nativeEvent.layout: {x, y, width, height}}}.
-  }
-  
-  setValue(value){
-    this.setState({value:value});
-    if(this.props.onChange)      this.props.onChange(value);
-    if(this.props.onValueChange) this.props.onValueChange(value);
   }
 
-  handleValueChange(value){
-    // debugger;
-    this.setState({value:value});
-    if(this.props.onChange)      this.props.onChange(value);
-    if(this.props.onValueChange) this.props.onValueChange(value);
+  componentDidUpdate() {
+    if (this.props.value && this.props.value !== this.state.value) {
+      this.setValue(this.props.value);
+    }
   }
 
-  render(){
-    return(<Field {...this.props}>
-      <View style={[{height: 52},this.props.containerStyle]}
+  setValue(value) {
+    this.setState({ value: value });
+    if (this.props.onChange) this.props.onChange(value);
+    if (this.props.onValueChange) this.props.onValueChange(value);
+  }
+
+  handleValueChange(value) {
+    this.setState({ value: value });
+    if (this.props.onChange) this.props.onChange(value);
+    if (this.props.onValueChange) this.props.onValueChange(value);
+  }
+
+  render() {
+    return (<Field {...this.props}>
+      <View style={[this.props.containerStyle]}
         onLayout={this.handleLayoutChange.bind(this)}>
 
         <Text style={this.props.labelStyle}>{this.props.label}</Text>
-          <Switch
+        <Switch
           onValueChange={this.handleValueChange.bind(this)}
           style={this.props.switchStyle}
           value={this.state.value} />
@@ -48,8 +53,7 @@ export class SwitchComponent extends React.Component{
 }
 
 SwitchComponent.propTypes = {
-  labelStyle: Text.propTypes.style,
-  containerStyle: View.propTypes.style,
-  switchStyle: Switch.propTypes.style
+  labelStyle: PropTypes.any,
+  containerStyle: ViewPropTypes.style,
+  switchStyle: PropTypes.any
 }
-

@@ -1,7 +1,8 @@
 'use strict';
 
 import React from 'react';
-let { View, StyleSheet, Text} = require('react-native');
+let { View, StyleSheet, Text, ViewPropTypes} = require('react-native');
+import PropTypes from 'prop-types';
 
 export class Separator extends React.Component{
   render(){
@@ -17,8 +18,8 @@ export class Separator extends React.Component{
 }
 
 Separator.propTypes = {
-  labelStyle: Text.propTypes.style,
-  containerStyle: View.propTypes.style
+  labelStyle: PropTypes.any,
+  containerStyle: ViewPropTypes.style
 }
 
 

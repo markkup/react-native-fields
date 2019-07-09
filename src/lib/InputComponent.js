@@ -1,8 +1,9 @@
 import React from 'react';
-import ReactNative, { Platform } from 'react-native';
+import ReactNative, { Platform, ViewPropTypes } from 'react-native';
 import { Field } from './Field.js';
 const { View, StyleSheet, TextInput, Text } = ReactNative;
 import Styles, { Color, Dims } from "../styles"
+import PropTypes from 'prop-types';
 
 function validateEmail(email) {
   var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -133,10 +134,10 @@ export class InputComponent extends React.Component{
       inputHeight: Math.max(this.state.minFieldHeight, (height && this.props.multiline) ? height : 0)
     });
 
-    if(this.props.onChange)      
+    if(this.props.onChange)
       this.props.onChange(value, this.valid);
 
-    if(this.props.onValueChange) 
+    if(this.props.onValueChange)
       this.props.onValueChange(value, this.valid);
   }
 
@@ -212,7 +213,7 @@ export class InputComponent extends React.Component{
 // }
 
 InputComponent.propTypes = {
-  labelStyle: Text.propTypes.style,
-  inputStyle: TextInput.propTypes.style,
-  containerStyle: View.propTypes.style
+  labelStyle: PropTypes.any,
+  inputStyle: PropTypes.any,
+  containerStyle: ViewPropTypes.style
 }

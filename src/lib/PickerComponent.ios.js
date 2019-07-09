@@ -1,5 +1,7 @@
 'use strict';
 
+import PropTypes from 'prop-types';
+
 import React from 'react';
 import ReactNative from 'react-native';
 let { View, StyleSheet, TextInput, Text, Picker} = ReactNative;
@@ -63,41 +65,8 @@ export class PickerComponent extends React.Component{
         if (this.state.isPickerVisible && this.props.onSubmitEditing) {
           this.props.onSubmitEditing(event);
         }
-        //this._scrollToInput(event);
     }
     render(){
-      //
-      // if (this.state.isMultipleSelect){
-      //             let iconName = 'ios-circle-outline';
-      //             let iconColor = {};
-      //             if (this.state.multipleSelectValue[name]) {
-      //                 iconName = 'ios-checkmark-outline';
-      //                 iconColor = {color:'red'};
-      //             }
-      //             return (
-      //                 <TouchableWithoutFeedback
-      //                     onPress={()=>{this.checkStateChange(name)}}>
-      //                     <Icon name={iconName} size={30} {...iconColor}/>
-      //                 </TouchableWithoutFeedback>
-      //             );
-      //         }else {
-      //             return (
-      //                 <View style={styles.accessory}/>
-      //             );
-      //         }
-
-      // <Switch
-      // onValueChange={(value) => this.setState({falseSwitchIsOn: value})}
-      //
-      // value={this.state.falseSwitchIsOn} />
-
-      // this.props.options.map((option, i) => {
-      //   pickerOptions.push(<PickerItem
-      //     key={i}
-      //     value={option.value}
-      //     label={option.label}
-      //   />);
-      // });
       let picker = <Picker ref='picker'
         {...this.props.pickerProps}
         style={{backgroundColor: "white"}}
@@ -114,7 +83,7 @@ export class PickerComponent extends React.Component{
       ), this)}
 
       </Picker>;
-      let pickerWrapper = React.cloneElement(this.props.pickerWrapper,{ 
+      let pickerWrapper = React.cloneElement(this.props.pickerWrapper,{
         onHidePicker: () => {
           this.setState({isPickerVisible:false});
         }
@@ -137,7 +106,6 @@ export class PickerComponent extends React.Component{
         ref='inputBox'
         onPress={this._togglePicker.bind(this)}>
         <View style={[
-          {height: 52},
           this.props.containerStyle
         ]}
           onLayout={this.handleLayoutChange.bind(this)}>
@@ -169,10 +137,10 @@ export class PickerComponent extends React.Component{
 
   }
 
-  PickerComponent.propTypes = {
-    pickerWrapper: React.PropTypes.element,
-  }
+PickerComponent.propTypes = {
+  pickerWrapper: PropTypes.element,
+}
 
-  PickerComponent.defaultProps = {
-    pickerWrapper: <View/>
-  }
+PickerComponent.defaultProps = {
+  pickerWrapper: <View/>
+}

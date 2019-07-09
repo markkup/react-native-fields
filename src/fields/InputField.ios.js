@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, { Component } from "react"
 import { StyleSheet } from "react-native"
 import { InputComponent } from "../lib/InputComponent"
@@ -46,8 +47,8 @@ export class InputField extends Component {
 }
 
 InputField.propTypes = {
-  multiline: React.PropTypes.bool,
-  placeholder: React.PropTypes.string
+  multiline: PropTypes.bool,
+  placeholder: PropTypes.string
 }
 
 let formStyles = StyleSheet.create({

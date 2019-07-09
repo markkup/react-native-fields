@@ -24,7 +24,7 @@ export class SwitchField extends React.Component{
         this.props.labelStyle
       ]}
       switchStyle={[
-        {marginTop: 7, position:'absolute', right: 10},
+        {marginTop: 7, position:'absolute', right: 15},
         this.props.switchStyle
       ]}
       />
@@ -46,8 +46,7 @@ let formStyles = StyleSheet.create({
     fontSize: 34/2,
     paddingLeft: 0,
     paddingRight: 10,
-    marginTop: 5,
-    lineHeight: 32,
+    paddingVertical: 12,
     flex:1
   }
 })

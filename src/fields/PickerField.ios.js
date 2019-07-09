@@ -23,7 +23,7 @@ export class PickerField extends React.Component {
       ref="fieldComponent"
       labelStyle={[
         {color: Color.text},
-        formStyles.fieldText, 
+        formStyles.fieldText,
         this.props.labelStyle]}
       valueStyle = {[
         {color: Color.tint},
@@ -68,8 +68,7 @@ let formStyles = StyleSheet.create({
     fontSize: 34/2,
     paddingLeft: 0,
     paddingRight: 10,
-    marginTop: 5,
-    lineHeight: 32,
+    paddingVertical: 12,
     flex:1
   }
 })

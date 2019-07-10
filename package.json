@@ -7,7 +7,7 @@
   },
   "dependencies": {
     "prop-types": "^15.6.2",
-    "react-native-keyboard-aware-scroll-view": "^0.2.7"
+    "react-native-keyboard-aware-scroll-view": "^0.4.1"
   },
   "description": "Fields for React Native",
   "homepage": "https://github.com/davideweaver/react-native-fields#readme",

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Platform, Text, TextInput, TextInputProps, View } from 'react-native';
 
-import { Field } from './Field.js';
+import { Field } from './Field';
 
 function validateEmail(email: string) {
     const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;

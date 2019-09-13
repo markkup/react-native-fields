@@ -6,6 +6,7 @@ import Styles, { Color, Dims } from '../styles';
 
 export interface ISwitchFieldProps {
     containerStyle?: any;
+    label?: string;
     labelStyle?: any;
     switchStyle?: any;
 }

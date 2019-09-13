@@ -67,7 +67,7 @@ export class InputComponent extends React.Component<IInputComponentProps, IState
         this.scrollToInput = this.scrollToInput.bind(this);
     }
 
-    public componentWillMount() {
+    public componentDidMount() {
         if (this.props.value) {
             this._updateValue(this.props.value);
         }

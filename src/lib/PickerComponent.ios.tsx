@@ -71,7 +71,7 @@ export class PickerComponent extends React.Component<IPickerComponentProps, ISta
             ), this)}
 
         </Picker>;
-        const pickerWrapper = React.cloneElement(this.props.pickerWrapper, {
+        const pickerWrapper = React.cloneElement(this.props.pickerWrapper || <View />, {
             onHidePicker: () => {
                 this.setState({ isPickerVisible: false });
             },

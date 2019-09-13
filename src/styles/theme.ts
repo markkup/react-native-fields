@@ -6,7 +6,7 @@ const Color = {
     border: '#DDDDDD',
     background: '#fff',
     cellBackground: '#fff',
-    heading: 'red', // #6D6D72"
+    heading: '#6D6D72',
 };
 
 const Dims = {

@@ -179,7 +179,7 @@ export class FieldGutter extends Component<IFieldGutterProps> {
 
 export interface ISelectFieldProps extends IFieldProps {
     onPress?: () => void;
-    text: string;
+    label: string;
     value?: string;
     icon?: string;
     iconTint?: string;
@@ -193,7 +193,7 @@ export class SelectField extends Component<ISelectFieldProps> {
             iconTint,
             icon,
             onPress = () => 0,
-            text,
+            label,
             numberOfLines = 1,
             value = '',
         } = this.props;
@@ -217,7 +217,7 @@ export class SelectField extends Component<ISelectFieldProps> {
                 <Field {...this.props}>
                     <View style={styles.touchableContainer}>
                         {iconComponent}
-                        <RegularText style={{ color: '#000' }}>{text}</RegularText>
+                        <RegularText style={{ color: Color.text }}>{label}</RegularText>
                         <RegularText
                             numberOfLines={numberOfLines}
                             style={{ flex: 1, color: '#999', paddingRight: 10, textAlign: 'right' }}>

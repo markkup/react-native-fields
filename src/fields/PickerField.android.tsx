@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 
 import { PickerComponent } from '../lib/PickerComponent';
+import { TextSize } from '../styles';
 
 export interface IPickerFieldProps {
     containerStyle?: any;
@@ -64,7 +65,7 @@ const formStyles = StyleSheet.create({
         justifyContent: 'flex-start',
     },
     fieldValue: {
-        fontSize: 34 / 2,
+        fontSize: TextSize.normal,
         paddingLeft: 10,
         paddingRight: 10,
         marginRight: 10,
@@ -73,7 +74,7 @@ const formStyles = StyleSheet.create({
         color: '#C7C7CC',
     },
     fieldText: {
-        fontSize: 34 / 2,
+        fontSize: TextSize.normal,
         paddingLeft: 10,
         paddingRight: 10,
         justifyContent: 'center',

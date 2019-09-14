@@ -2,9 +2,10 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 
 import { PickerComponent } from '../lib/PickerComponent';
-import Styles, { Color, Dims } from '../styles';
+import Styles, { Color, Dims, TextSize } from '../styles';
 
 export interface IPickerFieldProps {
+    label?: string;
     labelStyle?: any;
     valueStyle?: any;
     valueContainerStyle?: any;
@@ -68,12 +69,12 @@ const formStyles = StyleSheet.create({
         justifyContent: 'flex-end',
     },
     fieldValue: {
-        fontSize: 34 / 2,
+        fontSize: TextSize.normal,
         justifyContent: 'flex-end',
         paddingTop: 4,
     },
     fieldText: {
-        fontSize: 34 / 2,
+        fontSize: TextSize.normal,
         paddingLeft: 0,
         paddingRight: 10,
         paddingVertical: 12,

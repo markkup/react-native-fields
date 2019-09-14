@@ -179,7 +179,7 @@ export class FieldGutter extends Component<IFieldGutterProps> {
 
 export interface ISelectFieldProps extends IFieldProps {
     onPress?: () => void;
-    label: string;
+    label?: string;
     value?: string;
     icon?: string;
     iconTint?: string;

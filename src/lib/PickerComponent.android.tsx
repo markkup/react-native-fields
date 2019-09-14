@@ -2,6 +2,7 @@ import React from 'react';
 import { Picker, StyleSheet, Text, View } from 'react-native';
 
 import { Field } from '../lib/Field';
+import { TextSize } from '../styles';
 
 const PickerItem = Picker.Item;
 
@@ -154,7 +155,7 @@ const formStyles = StyleSheet.create({
         height: 45,
     },
     fieldValue: {
-        fontSize: 34 / 2,
+        fontSize: TextSize.normal,
         paddingLeft: 10,
         paddingRight: 10,
         marginRight: 10,
@@ -164,7 +165,7 @@ const formStyles = StyleSheet.create({
         color: '#C7C7CC',
     },
     fieldText: {
-        fontSize: 34 / 2,
+        fontSize: TextSize.normal,
         paddingLeft: 10,
         paddingRight: 10,
         justifyContent: 'center',

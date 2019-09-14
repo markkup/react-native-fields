@@ -2,13 +2,17 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 
 import { DatePickerComponent } from '../lib/DatePickerComponent';
-import Styles, { Color, Dims } from '../styles';
+import Styles, { Color, Dims, TextSize } from '../styles';
 
 export interface IDatePickerFieldProps {
+    label?: string;
+    value?: any;
     labelStyle?: any;
     valueStyle?: any;
     valueContainerStyle?: any;
     containerStyle?: any;
+    dateTimeFormat?: any;
+    mode?: string;
 }
 
 export class DatePickerField extends React.Component<IDatePickerFieldProps> {
@@ -22,12 +26,16 @@ export class DatePickerField extends React.Component<IDatePickerFieldProps> {
             <DatePickerComponent
                 ref='datePickerComponent'
                 {...this.props}
-                labelStyle={[formStyles.fieldText, this.props.labelStyle]}
+                labelStyle={[{ color: Color.text }, formStyles.fieldText, this.props.labelStyle]}
                 valueStyle={[formStyles.fieldValue, { color: Color.tint }, this.props.valueStyle]}
                 valueContainerStyle={[formStyles.alignRight,
-                this.props.valueContainerStyle]}
+                formStyles.horizontalContainer, this.props.valueContainerStyle]}
                 containerStyle={[
-                    { borderTopColor: Color.border },
+                    {
+                        borderTopColor: Color.border,
+                        backgroundColor: Color.cellBackground,
+                        borderTopWidth: Dims.borderWidth,
+                    },
                     formStyles.fieldContainer,
                     formStyles.horizontalContainer,
                     this.props.containerStyle,
@@ -50,13 +58,11 @@ const formStyles = StyleSheet.create({
         paddingRight: Dims.horzPadding,
     },
     fieldContainer: {
-        borderTopWidth: StyleSheet.hairlineWidth,
-        backgroundColor: 'white',
         justifyContent: 'center',
-        height: 45,
+        flexDirection: 'row',
     },
     fieldText: {
-        fontSize: 34 / 2,
+        fontSize: TextSize.normal,
         paddingLeft: 0,
         paddingRight: 10,
         marginTop: 5,
@@ -64,10 +70,8 @@ const formStyles = StyleSheet.create({
         lineHeight: 32,
     },
     fieldValue: {
-        fontSize: 34 / 2,
-        paddingLeft: 10,
-        paddingRight: 10,
-        marginRight: 10,
+        fontSize: TextSize.normal,
+        marginRight: 0,
         paddingTop: 4,
         justifyContent: 'center',
     },

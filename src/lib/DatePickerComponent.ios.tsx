@@ -1,6 +1,7 @@
 import React from 'react';
 import { DatePickerIOS, StyleSheet, Text, View } from 'react-native';
 
+import { TextSize } from '../styles';
 import { Field } from './Field';
 
 export interface IDatePickerComponent {
@@ -192,7 +193,7 @@ const formStyles = StyleSheet.create({
         height: 45,
     },
     fieldValue: {
-        fontSize: 34 / 2,
+        fontSize: TextSize.normal,
         marginRight: 10,
         paddingTop: 4,
         justifyContent: 'center',
@@ -200,7 +201,7 @@ const formStyles = StyleSheet.create({
         color: '#C7C7CC',
     },
     fieldText: {
-        fontSize: 34 / 2,
+        fontSize: TextSize.normal,
         paddingLeft: 0,
         paddingRight: 10,
         marginTop: 5,

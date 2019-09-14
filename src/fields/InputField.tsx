@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, TextInputProps } from 'react-native';
 
 import { InputComponent } from '../lib/InputComponent';
-import Styles, { Color, Dims } from '../styles';
+import Styles, { Color, Dims, TextSize } from '../styles';
 
 export interface IInputFieldProps extends TextInputProps {
     labelStyle?: any;
@@ -11,6 +11,8 @@ export interface IInputFieldProps extends TextInputProps {
     style?: any;
     containerStyle?: any;
     height?: number;
+    helpText?: string;
+    validationFunction?: any;
 }
 
 export class InputField extends Component<IInputFieldProps> {
@@ -65,8 +67,8 @@ const formStyles = StyleSheet.create({
         textAlign: 'right',
     },
     multiline: {
-        lineHeight: 32,
-        fontSize: 34 / 2,
+        lineHeight: 24,
+        fontSize: TextSize.normal,
         paddingBottom: 10,
     },
     horizontalContainer: {
@@ -78,7 +80,7 @@ const formStyles = StyleSheet.create({
         flexDirection: 'row',
     },
     fieldText: {
-        fontSize: 34 / 2,
+        fontSize: TextSize.normal,
         paddingLeft: 0,
         paddingRight: 10,
         marginTop: 5,
@@ -88,7 +90,7 @@ const formStyles = StyleSheet.create({
     input: {
         paddingLeft: 0,
         paddingRight: 0,
-        fontSize: 34 / 2,
+        fontSize: TextSize.normal,
         flex: 1,
         textAlignVertical: 'top',
     },

@@ -2,7 +2,7 @@ import React from 'react';
 import { Platform, StyleSheet } from 'react-native';
 
 import { SwitchComponent } from '../lib/SwitchComponent';
-import Styles, { Color, Dims } from '../styles';
+import Styles, { Color, Dims, TextSize } from '../styles';
 
 export interface ISwitchFieldProps {
     containerStyle?: any;
@@ -46,10 +46,8 @@ export class SwitchField extends React.Component<ISwitchFieldProps> {
 
 const formStyles = StyleSheet.create({
     fieldContainer: {
-        borderTopWidth: StyleSheet.hairlineWidth,
-        backgroundColor: 'white',
         justifyContent: 'center',
-        height: 45,
+        flexDirection: 'row',
     },
     horizontalContainer: {
         flexDirection: 'row',
@@ -58,14 +56,14 @@ const formStyles = StyleSheet.create({
         paddingRight: Dims.horzPadding,
     },
     fieldTextIos: {
-        fontSize: 34 / 2,
+        fontSize: TextSize.normal,
         paddingLeft: 0,
         paddingRight: 10,
         paddingVertical: 12,
         flex: 1,
     },
     fieldTextAndroid: {
-        fontSize: 34 / 2,
+        fontSize: TextSize.normal,
         paddingLeft: 0,
         paddingRight: 10,
         marginTop: 5,

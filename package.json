@@ -1,16 +1,13 @@
 {
-  "author": {
-    "name": "Dave Weaver"
-  },
+  "name": "@markkup/react-native-fields",
+  "version": "1.0.0",
+  "description": "Cross-platform input fields for React Native",
+  "author": "Dave Weaver",
   "bugs": {
-    "url": "https://github.com/davideweaver/react-native-fields/issues"
+    "url": "https://github.com/markkup/react-native-fields/issues"
   },
-  "dependencies": {
-    "prop-types": "^15.6.2",
-    "react-native-keyboard-aware-scroll-view": "0.4.1"
-  },
-  "description": "Fields for React Native",
-  "homepage": "https://github.com/davideweaver/react-native-fields#readme",
+  "dependencies": {},
+  "homepage": "https://github.com/markkup/react-native-fields#readme",
   "keywords": [
     "react",
     "native",
@@ -18,16 +15,70 @@
     "input"
   ],
   "license": "MIT",
-  "main": "index.js",
-  "name": "react-native-fields",
+  "main": "dist/index.js",
   "optionalDependencies": {},
-  "readmeFilename": "README.md",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/davideweaver/react-native-fields.git"
+    "url": "git+https://github.com/markkup/react-native-fields.git"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "npm run clean && npm run lint && npm run compile",
+    "compile": "tsc",
+    "lint": "tslint -p tsconfig.json",
+    "clean": "rimraf dist",
+    "test": "npm run build && npm run jest",
+    "jest": "TZ=America/New_York jest --silent --runInBand",
+    "jest:watch": "jest --watchAll",
+    "prepare": "npm run compile"
   },
-  "version": "1.0.0"
+  "files": [
+    "dist/**/*"
+  ],
+  "devDependencies": {
+    "@types/jest": "^24.0.18",
+    "@types/react": "^16.9.2",
+    "@types/react-native": "^0.60.8",
+    "@types/react-native-vector-icons": "^6.4.1",
+    "@types/react-test-renderer": "^16.9.0",
+    "jest": "^24.9.0",
+    "react": "^16.9.0",
+    "react-native": "^0.60.5",
+    "react-native-vector-icons": "^6.6.0",
+    "react-test-renderer": "^16.9.0",
+    "rimraf": "^3.0.0",
+    "ts-jest": "^24.1.0",
+    "tslint": "^5.19.0",
+    "typescript": "^3.6.2"
+  },
+  "peerDependencies": {
+    "react": ">= 15.0",
+    "react-native": ">= 0.48.0",
+    "react-native-vector-icons": ">= 6.0"
+  },
+  "jest": {
+    "preset": "react-native",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js"
+    ],
+    "transform": {
+      "^.+\\.(js|jsx)$": "<rootDir>/node_modules/react-native/jest/preprocessor.js",
+      "\\.(ts|tsx)$": "ts-jest"
+    },
+    "transformIgnorePatterns": [
+      "node_modules/(?!(jest-)?react-native)"
+    ],
+    "testMatch": [
+      "**/__tests__/**/*.test.ts?(x)"
+    ],
+    "globals": {
+      "ts-jest": {
+        "tsConfig": {
+          "jsx": "react"
+        }
+      },
+      "__TEST__": true
+    }
+  }
 }

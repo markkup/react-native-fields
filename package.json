@@ -23,6 +23,7 @@
   },
   "scripts": {
     "build": "npm run clean && npm run lint && npm run compile",
+    "build:demo": "npm run build && rimraf ./demo/node_modules/@markkup/react-native-fields/dist && mv dist ./demo/node_modules/@markkup/react-native-fields/dist",
     "compile": "tsc",
     "lint": "tslint -p tsconfig.json",
     "clean": "rimraf dist",
@@ -43,7 +44,6 @@
     "jest": "^24.9.0",
     "react": "^16.9.0",
     "react-native": "^0.60.5",
-    "react-native-vector-icons": "^6.6.0",
     "react-test-renderer": "^16.9.0",
     "rimraf": "^3.0.0",
     "ts-jest": "^24.1.0",
@@ -52,8 +52,7 @@
   },
   "peerDependencies": {
     "react": ">= 15.0",
-    "react-native": ">= 0.48.0",
-    "react-native-vector-icons": ">= 6.0"
+    "react-native": ">= 0.48.0"
   },
   "jest": {
     "preset": "react-native",

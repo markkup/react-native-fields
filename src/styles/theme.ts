@@ -5,8 +5,8 @@ const Color = {
     tint: 'rgb(0, 122, 255)',
     border: '#DDDDDD',
     background: '#fff',
-    cellBackground: '#fff',
     heading: '#6D6D72',
+    help: '#7a7a7a',
 };
 
 const Dims = {

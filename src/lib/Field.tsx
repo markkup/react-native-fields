@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { TouchableHighlight, View } from 'react-native';
 
 import { HelpText } from './HelpText';
@@ -6,7 +6,9 @@ import { HelpText } from './HelpText';
 export interface IFieldProps {
     helpTextComponent?: any;
     helpText?: string;
-    onPress?: (event: any) => void;
+    onPress?: () => void;
+    iconLeft?: any;
+    iconRight?: any;
 }
 
 export class Field extends React.Component<IFieldProps> {
@@ -18,12 +20,12 @@ export class Field extends React.Component<IFieldProps> {
                 : null);
 
         if (this.props.onPress) {
-            return <TouchableHighlight onPress={this.props.onPress}>
-                <View>
-                    {this.props.children}
+            return (
+                <Fragment>
+                    <TouchableHighlight onPress={this.props.onPress}>{this.props.children}</TouchableHighlight>
                     {fieldHelpText}
-                </View>
-            </TouchableHighlight>;
+                </Fragment>
+            );
         }
         return (<View>
             {this.props.children}

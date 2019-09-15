@@ -2,6 +2,7 @@ import React from 'react';
 import { Picker, Text, View } from 'react-native';
 
 import { Field } from '../lib/Field';
+import { FieldIcon } from './FieldIcon';
 
 const PickerItem = Picker.Item;
 
@@ -13,7 +14,7 @@ export interface IPickerComponentProps {
     onValueChange?: (value: string) => void;
     onFocus?: (event: any, handle: any) => void;
     onPress?: () => void;
-    onSubmitEditing?: (event: any) => void;
+    onSubmitEditing?: () => void;
     containerStyle?: any;
     labelStyle?: any;
     pickerProps?: any;
@@ -92,13 +93,13 @@ export class PickerComponent extends React.Component<IPickerComponentProps, ISta
         return (<View><Field
             {...this.props}
             ref='inputBox'
-            onPress={this.togglePicker.bind(this)}>
+            onPress={() => this.togglePicker()}>
             <View style={[
                 this.props.containerStyle,
             ]}
                 onLayout={this.handleLayoutChange.bind(this)}>
                 {(iconLeft)
-                    ? iconLeft
+                    ? <FieldIcon align='left' icon={iconLeft} />
                     : null
                 }
                 <Text style={this.props.labelStyle}>{this.props.label}</Text>
@@ -106,13 +107,11 @@ export class PickerComponent extends React.Component<IPickerComponentProps, ISta
                     <Text style={this.props.valueStyle}>
                         {(this.state.value) ? this.props.options[this.state.value] : ''}
                     </Text>
-
                 </View>
                 {(this.props.iconRight)
-                    ? this.props.iconRight
+                    ? <FieldIcon align='right' icon={iconRight} />
                     : null
                 }
-
             </View>
         </Field>
             {(this.state.isPickerVisible) ?
@@ -134,7 +133,7 @@ export class PickerComponent extends React.Component<IPickerComponentProps, ISta
 
         if (this.props.onChange) { this.props.onChange(value); }
         if (this.props.onValueChange) { this.props.onValueChange(value); }
-        if (this.props.autoclose) { this.togglePicker({}); }
+        if (this.props.autoclose) { this.togglePicker(); }
     }
 
     protected scrollToInput(event: any) {
@@ -145,11 +144,11 @@ export class PickerComponent extends React.Component<IPickerComponentProps, ISta
         //      this.refs.picker.measure(this.getPickerLayout.bind(this));
     }
 
-    protected togglePicker(event: any) {
+    protected togglePicker() {
         this.setState({ isPickerVisible: !this.state.isPickerVisible });
         this.props.onPress && this.props.onPress();
         if (this.state.isPickerVisible && this.props.onSubmitEditing) {
-            this.props.onSubmitEditing(event);
+            this.props.onSubmitEditing();
         }
     }
 }

@@ -43,7 +43,7 @@ export class PickerField extends React.Component<IPickerFieldProps> {
             containerStyle={[
                 {
                     borderTopColor: Color.border,
-                    backgroundColor: Color.cellBackground,
+                    backgroundColor: Color.background,
                     borderTopWidth: Dims.borderWidth,
                 },
                 formStyles.fieldContainer,
@@ -71,7 +71,7 @@ const formStyles = StyleSheet.create({
     fieldValue: {
         fontSize: TextSize.normal,
         justifyContent: 'flex-end',
-        paddingTop: 4,
+        paddingTop: 5,
     },
     fieldText: {
         fontSize: TextSize.normal,

@@ -1,15 +1,11 @@
-// tslint:disable: max-classes-per-file
 import React, { Component, ReactNode } from 'react';
-import { StyleSheet, TouchableHighlight, TouchableOpacity, View, ViewStyle } from 'react-native';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import Octicons from 'react-native-vector-icons/Octicons';
-import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
+import { StyleSheet, TouchableOpacity, View, ViewStyle } from 'react-native';
 
 import Styles, { Color, Dims } from '../styles';
 import ReadMore from './ReadMore';
 import { RegularText, SmallText, TinyText } from './StyledText';
 
+// tslint:disable: max-classes-per-file
 export interface IFieldGroupProps {
     title?: string;
     gutter?: boolean;
@@ -69,7 +65,7 @@ export class FieldGroup extends Component<IFieldGroupProps> {
                 {component}
             </View>);
         } else if (gutter) {
-            header = (<FieldGutter />);
+            header = (<View style={{ height: 15 }} />);
         } else {
             header = null;
         }
@@ -112,7 +108,7 @@ export class FieldGroup extends Component<IFieldGroupProps> {
 }
 
 export interface IFieldProps {
-    text?: string;
+    label?: string;
     value?: string;
     borderColor?: string;
     color?: string;
@@ -128,7 +124,7 @@ export class Field extends Component<IFieldProps> {
 
     public render() {
         const {
-            text = '',
+            label: text = '',
             value = '',
             borderColor,
             color = '#000',
@@ -153,7 +149,7 @@ export class Field extends Component<IFieldProps> {
         return (
             <View ref={'field'}>
                 {border}
-                <View style={[styles.field, { backgroundColor: Color.cellBackground }]}>
+                <View style={[styles.field, { backgroundColor: Color.background }]}>
                     <View style={[styles.fieldBody, style]}>
                         {contents}
                     </View>
@@ -171,151 +167,12 @@ export class FieldGutter extends Component<IFieldGutterProps> {
     public render() {
         const { height = 15 } = this.props;
         return (
-            <View style={{ height }}>
+            <View style={{
+                height,
+                borderTopColor: Color.border,
+                borderTopWidth: Dims.borderWidth,
+            }}>
             </View>
-        );
-    }
-}
-
-export interface ISelectFieldProps extends IFieldProps {
-    onPress?: () => void;
-    label?: string;
-    value?: string;
-    icon?: string;
-    iconTint?: string;
-    numberOfLines?: number;
-}
-
-export class SelectField extends Component<ISelectFieldProps> {
-
-    public render() {
-        const {
-            iconTint,
-            icon,
-            onPress = () => 0,
-            label,
-            numberOfLines = 1,
-            value = '',
-        } = this.props;
-
-        const tint = Color.tint;
-        const accessory = <SimpleLineIcons name='arrow-right' size={12} color={tint} />;
-        let iconColor = iconTint;
-        if (!iconColor) {
-            iconColor = tint;
-        }
-        let iconComponent = null;
-        if (icon) {
-            iconComponent = (
-                <View>
-                    <SimpleLineIcons name={icon} size={20} color={iconColor} style={{ marginRight: 10 }} />
-                </View>
-            );
-        }
-        return (
-            <TouchableHighlight onPress={onPress}>
-                <Field {...this.props}>
-                    <View style={styles.touchableContainer}>
-                        {iconComponent}
-                        <RegularText style={{ color: Color.text }}>{label}</RegularText>
-                        <RegularText
-                            numberOfLines={numberOfLines}
-                            style={{ flex: 1, color: '#999', paddingRight: 10, textAlign: 'right' }}>
-                            {value}
-                        </RegularText>
-                        <View style={{ justifyContent: 'center' }}>
-                            {accessory}
-                        </View>
-                    </View>
-                </Field>
-            </TouchableHighlight>
-        );
-    }
-}
-
-export interface ITouchableFieldProps extends IFieldProps {
-    onPress: () => void;
-    tint?: string;
-    accessory?: boolean | string | ReactNode;
-    icon?: string;
-    iconTint?: string;
-    value?: string;
-    valueTint?: string;
-}
-
-export class TouchableField extends Component<ITouchableFieldProps> {
-
-    public render() {
-        const {
-            tint = Color.tint,
-            text = '',
-            children,
-            accessory,
-            icon = '',
-            iconTint,
-            onPress,
-            value = '',
-            valueTint = '#999',
-        } = this.props;
-
-        let contents: any = (<RegularText style={{ color: tint }}>{text}</RegularText>);
-        if (children) {
-            contents = children;
-        }
-        let accessoryComponent = null;
-        if (typeof accessory === 'boolean' && accessory === true) {
-            accessoryComponent = (<SimpleLineIcons name='arrow-right' size={12} color={tint} />);
-        } else if (typeof accessory === 'string') {
-            switch (accessory) {
-                case 'check': {
-                    accessoryComponent = (<MaterialIcons name='check' size={18} color={tint} />);
-                    break;
-                }
-                case 'arrow': {
-                    accessoryComponent = (
-                        <Ionicons name='ios-arrow-forward' size={20} color='#BBB' style={{ paddingRight: 4 }} />
-                    );
-                    break;
-                }
-                case 'bullet': {
-                    accessoryComponent = (
-                        <Octicons name='primitive-dot' size={12} color={tint} style={{ paddingRight: 0 }} />
-                    );
-                    break;
-                }
-            }
-        } else if (typeof accessory === 'object') {
-            accessoryComponent = accessory;
-        }
-        let iconColor = iconTint;
-        if (!iconColor) {
-            iconColor = tint;
-        }
-        let iconComponent = null;
-        if (icon !== '') {
-            iconComponent = (
-                <View>
-                    <SimpleLineIcons name={icon} size={20} color={iconColor} style={{ marginRight: 10 }} />
-                </View>
-            );
-        }
-        return (
-            <TouchableHighlight onPress={onPress}>
-                <Field {...this.props}>
-                    <View style={styles.touchableContainer}>
-                        {iconComponent}
-                        <View style={{ flex: 1 }}>
-                            {contents}
-                        </View>
-                        <View>
-                            <RegularText style={{ color: valueTint }}>{value}</RegularText>
-                        </View>
-                        <View style={{ justifyContent: 'center' }}>
-                            {accessoryComponent}
-                        </View>
-                    </View>
-                </Field>
-            </TouchableHighlight>
         );
     }
 }
@@ -327,7 +184,7 @@ export interface IDescriptionFieldProps extends IFieldProps {
 
 export class DescriptionField extends Component<IDescriptionFieldProps> {
     public render() {
-        const { text, numberOfLines = 3, color = Color.text } = this.props;
+        const { label: text, numberOfLines = 3, color = Color.text } = this.props;
 
         return (
             <Field {...this.props}>

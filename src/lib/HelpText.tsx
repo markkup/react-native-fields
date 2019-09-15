@@ -1,6 +1,8 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
+import { Color, Dims } from '../styles';
+
 export interface IHelpTextProps {
     text?: string;
 }
@@ -18,13 +20,15 @@ export class HelpText extends React.Component<IHelpTextProps> {
 
 const formStyles = StyleSheet.create({
     helpTextContainer: {
-        marginTop: 9,
-        marginBottom: 25,
-        paddingLeft: 20,
-        paddingRight: 20,
+        paddingTop: 9,
+        paddingBottom: 25,
+        paddingLeft: Dims.horzPadding,
+        paddingRight: Dims.horzPadding,
+        borderTopColor: Color.border,
+        borderTopWidth: Dims.borderWidth,
 
     },
     helpText: {
-        color: '#7a7a7a',
+        color: Color.help,
     },
 });

@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { StyleSheet, TextInputProps } from 'react-native';
 
+import { IFieldProps as BaseFieldProps } from '../lib/Field';
 import { InputComponent } from '../lib/InputComponent';
 import Styles, { Color, Dims, TextSize } from '../styles';
 
-export interface IInputFieldProps extends TextInputProps {
+export interface IInputFieldProps extends TextInputProps, BaseFieldProps {
     labelStyle?: any;
     multiline?: boolean;
     label?: string;
@@ -46,7 +47,7 @@ export class InputField extends Component<IInputFieldProps> {
             containerStyle={[
                 {
                     borderTopColor: Color.border,
-                    backgroundColor: Color.cellBackground,
+                    backgroundColor: Color.background,
                     borderTopWidth: Dims.borderWidth,
                 },
                 formStyles.fieldContainer,

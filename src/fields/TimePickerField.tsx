@@ -2,10 +2,11 @@ import React from 'react';
 import { Platform, StyleSheet } from 'react-native';
 
 import { DatePickerComponent } from '../lib/DatePickerComponent';
+import { IFieldProps } from '../lib/Field';
 import { TimePickerComponent } from '../lib/TimePickerComponent.android';
 import { Color, Dims, TextSize } from '../styles';
 
-export interface ITimePickerFieldProps {
+export interface ITimePickerFieldProps extends IFieldProps {
     label?: string;
     value?: any;
     labelStyle?: any;
@@ -39,7 +40,7 @@ export class TimePickerField extends React.Component<ITimePickerFieldProps> {
                 containerStyle={[
                     {
                         borderTopColor: Color.border,
-                        backgroundColor: Color.cellBackground,
+                        backgroundColor: Color.background,
                         borderTopWidth: Dims.borderWidth,
                     },
                     formStyles.fieldContainer,

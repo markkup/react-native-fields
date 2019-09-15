@@ -1,9 +1,11 @@
 import React from 'react';
 import { Switch, Text, View } from 'react-native';
 
+import { IFieldProps } from '../lib/Field';
 import { Field } from './Field';
+import { FieldIcon } from './FieldIcon';
 
-export interface ISwitchComponentProps {
+export interface ISwitchComponentProps extends IFieldProps {
     value?: boolean;
     labelStyle?: any;
     containerStyle?: any;
@@ -47,14 +49,24 @@ export class SwitchComponent extends React.Component<ISwitchComponentProps, ISta
         return (<Field {...this.props}>
             <View style={[this.props.containerStyle]}
                 onLayout={this.handleLayoutChange.bind(this)}>
-
-                <Text style={this.props.labelStyle}>{this.props.label}</Text>
+                {(this.props.iconLeft)
+                    ? <FieldIcon align='left' icon={this.props.iconLeft} />
+                    : null
+                }
+                {(this.props.label)
+                    ?
+                    <Text style={this.props.labelStyle}>{this.props.label}</Text>
+                    : null
+                }
                 <Switch
                     onValueChange={this.handleValueChange.bind(this)}
                     style={this.props.switchStyle}
                     value={this.state.value} />
+                {(this.props.iconRight)
+                    ? <FieldIcon align='right' icon={this.props.iconRight} />
+                    : null
+                }
             </View>
-
         </Field>
         );
     }

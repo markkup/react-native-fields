@@ -40,11 +40,11 @@ export class DatePickerComponent extends React.Component<IDatePickerComponent, I
         };
     }
 
-    public componentWillReceiveProps(nextProps: IDatePickerComponent) {
-        if (this.props.value !== nextProps.value) {
-            this.setState({ date: nextProps.value });
-        }
-    }
+    // public componentWillReceiveProps(nextProps: IDatePickerComponent) {
+    //     if (this.props.value !== nextProps.value) {
+    //         this.setState({ date: nextProps.value });
+    //     }
+    // }
 
     public setDate(value: any) {
         this.setState({ date: value });

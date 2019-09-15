@@ -2,6 +2,7 @@ import React from 'react';
 import { Platform, Text, TextInput, TextInputProps, View } from 'react-native';
 
 import { Field } from './Field';
+import { FieldIcon } from './FieldIcon';
 
 function validateEmail(email: string) {
     const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -83,14 +84,10 @@ export class InputComponent extends React.Component<IInputComponentProps, IState
 
     public render() {
         return (<Field {...this.props}>
-            <View
-                onLayout={this.handleLayoutChange}
-                style={[
-                    this.props.containerStyle,
-
-                ]}>
+            <View style={[this.props.containerStyle]}
+                onLayout={this.handleLayoutChange}>
                 {(this.props.iconLeft)
-                    ? this.props.iconLeft
+                    ? <FieldIcon align='left' icon={this.props.iconLeft} top={this.props.multiline} />
                     : null
                 }
                 {(this.props.label)
@@ -107,6 +104,7 @@ export class InputComponent extends React.Component<IInputComponentProps, IState
                     ref='inputBox'
                     keyboardType={this.props.keyboardType}
                     style={[
+                        this.props.multiline ? { marginTop: 3 } : {},
                         this.props.inputStyle,
                         { height: this.state.inputHeight },
                     ]}
@@ -117,14 +115,9 @@ export class InputComponent extends React.Component<IInputComponentProps, IState
                     placeholderTextColor={this.props.placeholderTextColor || '#BBB'}
                     underlineColorAndroid={this.props.underlineColorAndroid || 'transparent'}
                     value={this.state.value}
-                // width={this.state.width - this.state.labelWidth - (Dims.horzPadding * 2)
-                //     - ((this.props.iconRight) ? this.props.iconRight.props.size : 0)
-                //     - ((this.props.iconLeft) ? this.props.iconLeft.props.size : 0)
-                // }
-
                 />
                 {(this.props.iconRight)
-                    ? this.props.iconRight
+                    ? <FieldIcon align='right' icon={this.props.iconRight} top={this.props.multiline} />
                     : null
                 }
             </View>
@@ -215,7 +208,7 @@ export class InputComponent extends React.Component<IInputComponentProps, IState
         });
 
         if (this.props.onChange) {
-            this.props.onChange({ text: value } as any);
+            this.props.onChange(value as any);
         }
 
         if (this.props.onValueChange) {

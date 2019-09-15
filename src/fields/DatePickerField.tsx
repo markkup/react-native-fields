@@ -2,9 +2,10 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 
 import { DatePickerComponent } from '../lib/DatePickerComponent';
+import { IFieldProps } from '../lib/Field';
 import Styles, { Color, Dims, TextSize } from '../styles';
 
-export interface IDatePickerFieldProps {
+export interface IDatePickerFieldProps extends IFieldProps {
     label?: string;
     value?: any;
     labelStyle?: any;
@@ -33,7 +34,7 @@ export class DatePickerField extends React.Component<IDatePickerFieldProps> {
                 containerStyle={[
                     {
                         borderTopColor: Color.border,
-                        backgroundColor: Color.cellBackground,
+                        backgroundColor: Color.background,
                         borderTopWidth: Dims.borderWidth,
                     },
                     formStyles.fieldContainer,

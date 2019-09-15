@@ -1,10 +1,11 @@
 import React from 'react';
 import { Platform, StyleSheet } from 'react-native';
 
+import { IFieldProps } from '../lib/Field';
 import { SwitchComponent } from '../lib/SwitchComponent';
 import Styles, { Color, Dims, TextSize } from '../styles';
 
-export interface ISwitchFieldProps {
+export interface ISwitchFieldProps extends IFieldProps {
     containerStyle?: any;
     label?: string;
     labelStyle?: any;
@@ -23,7 +24,7 @@ export class SwitchField extends React.Component<ISwitchFieldProps> {
             containerStyle={[
                 {
                     borderTopColor: Color.border,
-                    backgroundColor: Color.cellBackground,
+                    backgroundColor: Color.background,
                     borderTopWidth: Dims.borderWidth,
                 },
                 formStyles.fieldContainer,
@@ -36,7 +37,7 @@ export class SwitchField extends React.Component<ISwitchFieldProps> {
                 this.props.labelStyle,
             ]}
             switchStyle={[
-                { marginTop: 7, position: 'absolute', right: 15 },
+                { marginTop: 7 },
                 this.props.switchStyle,
             ]}
         />
@@ -50,8 +51,6 @@ const formStyles = StyleSheet.create({
         flexDirection: 'row',
     },
     horizontalContainer: {
-        flexDirection: 'row',
-        justifyContent: 'flex-start',
         paddingLeft: Dims.horzPadding,
         paddingRight: Dims.horzPadding,
     },

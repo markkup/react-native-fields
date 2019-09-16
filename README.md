@@ -1,4 +1,5 @@
 React Native Fields
 ================
 
-Forked and modified from [react-native-form-generator](https://github.com/MichaelCereda/react-native-form-generator)
+Docs coming soon.
+See [demo](https://github.com/markkup/react-native-fields/tree/develop/demo) for usage examples

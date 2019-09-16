@@ -3,11 +3,12 @@ import { DatePickerAndroid, StyleSheet, Text, View } from 'react-native';
 
 import { TextSize } from '../styles';
 import { Field } from './Field';
+import { FieldIcon } from './FieldIcon';
 
 export interface IDatePickerComponent {
     value?: Date;
     onChange?: any;
-    dateTimeFormat?: (value: Date | undefined, mode?: 'datetime' | 'time') => string;
+    dateTimeFormat?: (value: Date | undefined, mode?: 'datetime' | 'date' | 'time') => string;
     onValueChange?: any;
     prettyPrint?: any;
     pickerWrapper?: any;
@@ -76,12 +77,16 @@ export class DatePickerComponent extends React.Component<IDatePickerComponent, I
             iconLeft = (!this.state.isPickerVisible)
                 ? iconLeft[0]
                 : iconLeft[1];
+        } else if (iconLeft) {
+            iconLeft = <FieldIcon align='left' icon={iconLeft} />;
         }
 
         if (iconRight && iconRight.constructor === Array) {
             iconRight = (!this.state.isPickerVisible)
                 ? iconRight[0]
                 : iconRight[1];
+        } else if (iconRight) {
+            iconRight = <FieldIcon align='right' icon={iconRight} />;
         }
 
         const labelComponent = (this.props.labelComponent)

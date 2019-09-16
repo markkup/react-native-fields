@@ -8,7 +8,7 @@ import { FieldIcon } from './FieldIcon';
 export interface IDatePickerComponent {
     value?: Date;
     onChange?: any;
-    dateTimeFormat?: (value: Date | undefined, mode?: 'datetime' | 'time') => string;
+    dateTimeFormat?: (value: Date | undefined, mode?: 'datetime' | 'date' | 'time') => string;
     onValueChange?: any;
     prettyPrint?: any;
     pickerWrapper?: any;

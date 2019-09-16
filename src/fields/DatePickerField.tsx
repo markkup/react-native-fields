@@ -12,7 +12,7 @@ export interface IDatePickerFieldProps extends IFieldProps {
     valueStyle?: any;
     valueContainerStyle?: any;
     containerStyle?: any;
-    dateTimeFormat?: any;
+    dateTimeFormat?: (value: Date | undefined, mode?: 'datetime' | 'date' | 'time') => string;
     mode?: string;
 }
 

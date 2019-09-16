@@ -13,7 +13,7 @@ export interface ITimePickerFieldProps extends IFieldProps {
     valueStyle?: any;
     valueContainerStyle?: any;
     containerStyle?: any;
-    dateTimeFormat?: any;
+    dateTimeFormat?: (value: Date | undefined, mode?: 'datetime' | 'date' | 'time') => string;
     mode?: string;
 }
 
@@ -52,11 +52,20 @@ export class TimePickerField extends React.Component<ITimePickerFieldProps> {
             return (<TimePickerComponent
                 {...this.props}
                 ref='fieldComponent'
-                labelStyle={[formStyles.fieldText, this.props.labelStyle]}
-                valueStyle={[formStyles.fieldValue, this.props.valueStyle]}
+                labelStyle={[
+                    { color: Color.text },
+                    formStyles.fieldText,
+                    this.props.labelStyle,
+                ]}
+                valueStyle={[formStyles.fieldValue, { color: Color.tint }, this.props.valueStyle]}
                 valueContainerStyle={[formStyles.alignRight,
                 formStyles.horizontalContainer, this.props.valueContainerStyle]}
                 containerStyle={[
+                    {
+                        borderTopColor: Color.border,
+                        backgroundColor: Color.background,
+                        borderTopWidth: Dims.borderWidth,
+                    },
                     formStyles.fieldContainer,
                     formStyles.horizontalContainer,
                     this.props.containerStyle,
@@ -81,6 +90,7 @@ const formStyles = StyleSheet.create({
     fieldContainer: {
         justifyContent: 'center',
         flexDirection: 'row',
+        minHeight: 45,
     },
     fieldText: {
         fontSize: TextSize.normal,

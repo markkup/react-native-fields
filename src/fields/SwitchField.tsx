@@ -37,7 +37,7 @@ export class SwitchField extends React.Component<ISwitchFieldProps> {
                 this.props.labelStyle,
             ]}
             switchStyle={[
-                { marginTop: 7 },
+                { marginTop: Platform.OS === 'ios' ? 7 : 2 },
                 this.props.switchStyle,
             ]}
         />
@@ -49,6 +49,7 @@ const formStyles = StyleSheet.create({
     fieldContainer: {
         justifyContent: 'center',
         flexDirection: 'row',
+        height: 45,
     },
     horizontalContainer: {
         paddingLeft: Dims.horzPadding,

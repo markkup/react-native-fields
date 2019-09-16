@@ -55,7 +55,7 @@ export class SwitchComponent extends React.Component<ISwitchComponentProps, ISta
                 }
                 {(this.props.label)
                     ?
-                    <Text style={this.props.labelStyle}>{this.props.label}</Text>
+                    <Text style={[{ flex: 1 }, this.props.labelStyle]}>{this.props.label}</Text>
                     : null
                 }
                 <Switch

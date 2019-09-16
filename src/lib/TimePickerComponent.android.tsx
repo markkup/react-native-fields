@@ -2,21 +2,19 @@ import React from 'react';
 import { StyleSheet, Text, TimePickerAndroid, TimePickerAndroidOpenOptions, View } from 'react-native';
 
 import { TextSize } from '../styles';
-import { Field } from './Field';
+import { Field, IFieldProps } from './Field';
+import { FieldIcon } from './FieldIcon';
 
-export interface ITimePickerComponentProps {
+export interface ITimePickerComponentProps extends IFieldProps {
     date?: Date;
-    dateTimeFormat?: (date: Date | undefined) => string;
+    label?: string;
+    dateTimeFormat?: (value: Date | undefined, mode?: 'datetime' | 'date' | 'time') => string;
     onChange?: (value: Date) => void;
     onValueChange?: (value: Date) => void;
     prettyPrint?: boolean;
     options?: TimePickerAndroidOpenOptions;
-    placeholder?: string;
-    placeholderStyle?: any;
-    placeholderComponent?: any;
     containerStyle?: any;
     valueStyle?: any;
-    iconRight?: any;
     labelStyle?: any;
     valueContainerStyle?: any;
 }
@@ -30,7 +28,7 @@ export class TimePickerComponent extends React.Component<ITimePickerComponentPro
     constructor(props: ITimePickerComponentProps) {
         super(props);
         this.state = {
-            date: props.date,
+            date: props.date || new Date(),
             isPickerVisible: false,
         };
 
@@ -48,42 +46,29 @@ export class TimePickerComponent extends React.Component<ITimePickerComponentPro
 
     public render() {
         const timeValue = this.dateTimeFormat(this.state.date);
-        const placeholderComponent = (this.props.placeholderComponent)
-            ? this.props.placeholderComponent
-            : <Text style={[formStyles.fieldText, this.props.placeholderStyle]}>{this.props.placeholder}</Text>;
         return (<View><Field
             {...this.props}
             ref='inputBox'
             onPress={() => this.togglePicker()}>
-            <View style={[formStyles.fieldContainer,
-            formStyles.horizontalContainer,
-            this.props.containerStyle]}
+            <View style={this.props.containerStyle}
                 onLayout={this.handleLayoutChange.bind(this)}>
-
-                {placeholderComponent}
-                <View style={[formStyles.alignRight, formStyles.horizontalContainer]}>
-                    <Text style={[formStyles.fieldValue, this.props.valueStyle]}>{
-                        (this.state.date) ? this.state.date.toLocaleDateString() : ''
-                    }</Text>
-
-                </View>
-                {(this.props.iconRight)
-                    ? this.props.iconRight
+                {(this.props.iconLeft)
+                    ? <FieldIcon align='left' icon={this.props.iconLeft} />
                     : null
                 }
+                <Text style={this.props.labelStyle}>{this.props.label}</Text>
+                <View style={this.props.valueContainerStyle}>
+                    <Text style={this.props.valueStyle}>
+                        {(this.state.date) ? timeValue : '5:44pm'}
+                    </Text>
+                </View>
+                {(this.props.iconRight)
+                    ? <FieldIcon align='right' icon={this.props.iconRight} />
+                    : null
+                }
+
             </View>
-        </Field>
-            {(this.state.isPickerVisible) ?
-                <View
-                    {...this.props}
-                // date={this.state.date || new Date()}
-                // onDateChange={this.handleValueChange.bind(this)}
-                />
-
-                : null
-            }
-
-        </View>
+        </Field></View>
         );
     }
 
@@ -117,7 +102,7 @@ export class TimePickerComponent extends React.Component<ITimePickerComponentPro
     protected dateTimeFormat(date: Date | undefined): string {
 
         if (this.props.dateTimeFormat) {
-            return this.props.dateTimeFormat(date);
+            return this.props.dateTimeFormat(date, 'time');
         }
 
         if (!date) {

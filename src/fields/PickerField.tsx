@@ -1,10 +1,11 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
 
+import { IFieldProps } from '../lib/Field';
 import { PickerComponent } from '../lib/PickerComponent';
 import Styles, { Color, Dims, TextSize } from '../styles';
 
-export interface IPickerFieldProps {
+export interface IPickerFieldProps extends IFieldProps {
     label?: string;
     labelStyle?: any;
     valueStyle?: any;
@@ -60,12 +61,11 @@ const formStyles = StyleSheet.create({
         marginTop: 7,
     },
     horizontalContainer: {
-        flexDirection: 'row',
-        justifyContent: 'flex-start',
         paddingLeft: Dims.horzPadding,
         paddingRight: Dims.horzPadding,
     },
     fieldContainer: {
+        flexDirection: 'row',
         justifyContent: 'flex-end',
     },
     fieldValue: {

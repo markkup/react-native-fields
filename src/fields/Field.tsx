@@ -1,19 +1,19 @@
 import React, { Component, ReactNode } from 'react';
-import { Platform, StyleSheet, TextInputProps } from 'react-native';
+import { Platform, StyleSheet, TextProps, TextStyle, ViewStyle } from 'react-native';
 
 import { IFieldProps as BaseFieldProps } from '../lib/Field';
 import { FieldComponent } from '../lib/FieldComponent';
 import Styles, { Color, Dims, TextSize } from '../styles';
 
-export interface IFieldProps extends TextInputProps, BaseFieldProps {
+export interface IFieldProps extends BaseFieldProps {
     label?: string;
     value?: string;
     left?: ReactNode;
     right?: ReactNode;
-    labelStyle?: any;
-    valueStyle?: any;
-    leftStyle?: any;
-    rightStyle?: any;
+    labelStyle?: TextProps;
+    valueStyle?: TextStyle;
+    leftStyle?: ViewStyle;
+    rightStyle?: ViewStyle;
     containerStyle?: any;
     height?: number;
     active?: boolean;
@@ -41,12 +41,12 @@ export class Field extends Component<IFieldProps> {
                 { color: this.props.active ? Color.tint : Color.text },
                 Platform.OS === 'ios' ? formStyles.fieldTextIos : formStyles.fieldTextAndroid,
                 this.props.labelStyle,
-            ]}
+            ] as any}
             valueStyle={[
                 { color: Color.text },
                 Platform.OS === 'ios' ? formStyles.valueTextIos : formStyles.valueTextAndroid,
                 this.props.valueStyle,
-            ]}
+            ] as any}
             containerStyle={[
                 {
                     borderTopColor: Color.border,
@@ -69,6 +69,7 @@ const formStyles = StyleSheet.create({
     fieldContainer: {
         justifyContent: 'center',
         flexDirection: 'row',
+        minHeight: 45,
     },
     fieldTextIos: {
         fontSize: TextSize.normal,

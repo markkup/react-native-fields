@@ -94,9 +94,8 @@ export class PickerComponent extends React.Component<IPickerComponentProps, ISta
             {...this.props}
             ref='inputBox'
             onPress={() => this.togglePicker()}>
-            <View style={[
-                this.props.containerStyle,
-            ]}
+            <View
+                style={[this.props.containerStyle]}
                 onLayout={this.handleLayoutChange.bind(this)}>
                 {(iconLeft)
                     ? <FieldIcon align='left' icon={iconLeft} />

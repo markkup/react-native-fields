@@ -76,7 +76,6 @@ export default class Fields extends Component<IProps, IState> {
 
                         <InputField
                             ref='text'
-                            autoFocus={true}
                             placeholder='required'
                             label='Folder Name'
                             returnKeyType='next'
@@ -144,7 +143,6 @@ export default class Fields extends Component<IProps, IState> {
                         <PickerField
                             ref='picker'
                             label='Field (Picker)'
-                            pickerWrapper={<View />}
                             iconLeft={<Icon name='ios-folder-open' color='orange' size={32} />}
                             iconRight={
                                 this.state.data.picker === ''
@@ -190,6 +188,8 @@ export default class Fields extends Component<IProps, IState> {
                             label='Submit Form'
                             active
                             onPress={() => this.onSubmit()} />
+
+                        <FieldGutter />
 
                     </FieldGroup>
 

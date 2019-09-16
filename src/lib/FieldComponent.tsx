@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import { Text, View } from 'react-native';
+import { Text, TextStyle, View, ViewStyle } from 'react-native';
 
 import { Field, IFieldProps } from './Field';
 import { FieldIcon } from './FieldIcon';
@@ -9,10 +9,10 @@ export interface IFieldComponentProps extends IFieldProps {
     value?: string;
     left?: ReactNode;
     right?: ReactNode;
-    labelStyle?: any;
-    valueStyle?: any;
-    leftStyle?: any;
-    rightStyle?: any;
+    labelStyle?: TextStyle;
+    valueStyle?: TextStyle;
+    leftStyle?: ViewStyle;
+    rightStyle?: ViewStyle;
     height?: number;
     containerStyle?: any;
 }
@@ -35,11 +35,11 @@ export class FieldComponent extends React.Component<IFieldComponentProps> {
 
         const left = this.props.left
             ? <View style={[{ flex: 1 }, leftStyle]}>{this.props.left}</View>
-            : label ? <Text style={labelStyle}>{label}</Text>
+            : label ? <Text style={[{ flex: 1 }, labelStyle]}>{label}</Text>
                 : null;
         const right = this.props.right
             ? <View style={[{ flex: 1 }, rightStyle]}>{this.props.right}</View>
-            : value ? <Text style={valueStyle}>{value}</Text>
+            : value ? <Text style={[{ flex: 1 }, valueStyle]}>{value}</Text>
                 : null;
 
         return (<Field {...this.props}>
